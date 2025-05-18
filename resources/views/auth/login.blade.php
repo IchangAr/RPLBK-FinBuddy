@@ -1,7 +1,7 @@
 <x-guest-layout>
     <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-            <img class="mx-auto h-20 w-auto" src="{{ asset('img/FinBuddy Logo.png') }}" alt="FinBuddy">
+            <img class="mx-auto h-20 w-auto" src="img/FinBuddy Logo.png" alt="FinBuddy">
             <h2 class="mt-8 text-center text-3xl font-bold tracking-tight text-gray-900">
                 Masuk ke Akun Anda
             </h2>

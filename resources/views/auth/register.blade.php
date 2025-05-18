@@ -1,7 +1,7 @@
 <x-guest-layout>
     <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-            <img class="mx-auto h-22 w-auto" src="{{ asset('img/FinBuddy Logo.png') }}" alt="FinBuddy">
+            <img class="mx-auto h-22 w-auto" src="img/FinBuddy Logo.png" alt="FinBuddy">
             <h2 class="mt-8 text-center text-3xl font-bold tracking-tight text-gray-900">
                 Daftar Akun Baru
             </h2>
@@ -17,20 +17,22 @@
                 <!-- Username -->
                 <div>
                     <x-input-label for="name" :value="__('Username')" />
-                    <x-text-input id="name" name="name" type="text" :value="old('name')" required autofocus autocomplete="username"
+                    <x-text-input id="name" name="name" type="text" :value="old('name')" required autofocus
+                        autocomplete="username"
                         class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900
                         outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400
-                        focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
+                        focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                 </div>
 
                 <!-- Email -->
                 <div>
                     <x-input-label for="email" :value="__('Email')" />
-                    <x-text-input id="email" name="email" type="email" :value="old('email')" required autocomplete="email"
+                    <x-text-input id="email" name="email" type="email" :value="old('email')" required
+                        autocomplete="email"
                         class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900
                         outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400
-                        focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
+                        focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
                     <x-input-error :messages="$errors->get('email')" class="mt-2" />
                 </div>
 
@@ -40,17 +42,18 @@
                     <x-text-input id="password" name="password" type="password" required autocomplete="new-password"
                         class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900
                         outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400
-                        focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
+                        focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
                     <x-input-error :messages="$errors->get('password')" class="mt-2" />
                 </div>
 
                 <!-- Confirm Password -->
                 <div>
                     <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-                    <x-text-input id="password_confirmation" name="password_confirmation" type="password" required autocomplete="new-password"
+                    <x-text-input id="password_confirmation" name="password_confirmation" type="password" required
+                        autocomplete="new-password"
                         class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900
                         outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400
-                        focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
+                        focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
                     <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                 </div>
 
