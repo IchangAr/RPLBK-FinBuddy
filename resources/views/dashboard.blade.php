@@ -7,7 +7,7 @@
             </div>
             <div class="mt-6 bg-white p-6 rounded-md shadow">
                 <div class="flex justify-between items-center">
-                    <p class="text-xs text-gray-600">Saldo anda saat ini : - </p>
+                    <p class="text-xs text-gray-600">Saldo anda saat ini : {{ number_format($user->saldo ?? 0, 0, ',', '.') }}</p>
                     <a  href="budgeting" class=" text-xs bg-[#111827] text-white px-2 py-1 rounded-md hover:bg-[#212f4d]">
                         Tambah Saldo
                     </a>
