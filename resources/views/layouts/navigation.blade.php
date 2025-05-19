@@ -75,7 +75,7 @@
             </ul>
             <div class="text-xs text-gray-400 mt-4">Riwayat Keuangan</div>
             <ul class="space-y-2 mt-2">
-                <li><a href="#" class="block p-2 rounded-md hover:bg-gray-800">Input Saldo</a></li>
+                <li><a href="riwayatInputSaldo" class="block p-2 rounded-md hover:bg-gray-800">Riwayat Input Saldo</a></li>
                 <li><a href="#" class="block p-2 rounded-md hover:bg-gray-800">Pengeluaran</a></li>
             </ul>
         </nav>
@@ -103,7 +103,7 @@
                     </ul>
                     <div class="text-xs text-gray-400 mt-4">Riwayat Keuangan</div>
                     <ul class="space-y-2 mt-2">
-                        <li><a href="#" class="block p-2 rounded-md hover:bg-gray-800">Input Saldo</a></li>
+                        <li><a href="riwayatInputSaldo" class="block p-2 rounded-md hover:bg-gray-800">Riwayat Input Saldo</a></li>
                         <li><a href="#" class="block p-2 rounded-md hover:bg-gray-800">Pengeluaran</a></li>
                     </ul>
                 </nav>
