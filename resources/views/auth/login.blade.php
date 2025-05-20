@@ -34,7 +34,7 @@
                         <label for="password" class="block text-sm font-medium text-gray-900">Password</label>
                         @if (Route::has('password.request'))
                             <a href="{{ route('password.request') }}"
-                                class="text-sm text-indigo-600 hover:text-indigo-500">Lupa Password?</a>
+                                class="text-sm text-[#3B577D] hover:text-[#4d71a3]">Lupa Password?</a>
                         @endif
                     </div>
                     <div class="mt-2">
@@ -47,7 +47,7 @@
                 <!-- Submit -->
                 <div class="mt-10">
                     <button type="submit"
-                        class="flex w-full justify-center rounded-md bg-[#1a5fb4] px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-[#1f73da] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                        class="flex w-full justify-center rounded-md bg-[#3B577D] px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-[#4d71a3] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                         Sign in
                     </button>
                 </div>
@@ -55,7 +55,7 @@
 
             <p class="mt-10 text-center text-sm text-gray-500">
                 Belum punya akun?
-                <a href="{{ route('register') }}" class="font-semibold text-[#1a5fb4] hover:text-[#1f73da]">Daftar</a>
+                <a href="{{ route('register') }}" class="font-semibold text-[#3B577D] hover:text-[#4d71a3]">Daftar</a>
             </p>
         </div>
     </div>
