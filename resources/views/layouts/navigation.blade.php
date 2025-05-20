@@ -63,29 +63,54 @@
     </div>
 
     <!-- Sidebar Desktop -->
-    <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col bg-gray-900 px-6 pb-4 text-white">
+    <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col bg-[#44679F] px-6 pb-4 text-white">
         <div class="h-16 flex items-center">
-            <img class="h-8 w-auto" src="img/FinBuddy Logo.png" alt="Logo">
+            <img class="h-10 m-3 w-auto" src="img/FinBuddy Logo.png" alt="Logo">
+            <p class="text-xl font-bold">FinBuddy</p>
         </div>
         <nav class="flex flex-col gap-y-5">
-            <ul class="space-y-2">
-                <li><a href="dashboard" class="block p-2 rounded-md bg-gray-800">Home</a></li>
-                <li><a href="budgeting" class="block p-2 rounded-md hover:bg-gray-800">Budgeting</a></li>
-                <li><a href="#" class="block p-2 rounded-md hover:bg-gray-800">Grafik</a></li>
+            <ul class="space-y-2 mt-5">
+                <li>
+                    <a href="{{ url('dashboard') }}"
+                        class="block p-2 rounded-md {{ request()->is('dashboard') ? 'bg-[#3B577D] text-white' : 'hover:bg-[#4d71a3]' }}">
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url('budgeting') }}"
+                        class="block p-2 rounded-md {{ request()->is('budgeting*') ? 'bg-[#3B577D] text-white' : 'hover:bg-[#4d71a3]' }}">
+                        Budgeting
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url('visual') }}"
+                        class="block p-2 rounded-md {{ request()->is('visual*') ? 'bg-[#3B577D] text-white' : 'hover:bg-[#4d71a3]' }}">
+                        Visualisasi Keuangan
+                    </a>
+                </li>
+
             </ul>
-            <div class="text-xs text-gray-400 mt-4">Riwayat Keuangan</div>
+            <div class="text-xs text-gray-200 mt-4">Riwayat Keuangan</div>
             <ul class="space-y-2 mt-2">
-                <li><a href="riwayatInputSaldo" class="block p-2 rounded-md hover:bg-gray-800">Riwayat Input Saldo</a></li>
-                <li><a href="#" class="block p-2 rounded-md hover:bg-gray-800">Pengeluaran</a></li>
+                <li><a href="{{ url('riwayatInputSaldo') }}"
+                        class="block p-2 rounded-md {{ request()->is('riwayatInputSaldo*') ? 'bg-[#3B577D] text-white' : 'hover:bg-[#4d71a3]' }}">
+                        Riwayat Input Saldo
+                    </a></li>
+                <li>
+                    <a href="{{ url('pengeluaran') }}"
+                        class="block p-2 rounded-md {{ request()->is('pengeluaran*') ? 'bg-[#3B577D] text-white' : 'hover:bg-[#4d71a3]' }}">
+                        Pengeluaran
+                    </a>
+                </li>
             </ul>
         </nav>
     </div>
 
     <!-- Sidebar Mobile -->
     <div class="relative z-50 lg:hidden" x-show="mobileMenuOpen" x-transition>
-        <div class="fixed inset-0 bg-gray-900/80" @click="mobileMenuOpen = false"></div>
+        <div class="fixed inset-0 bg-gray-900/40" @click="mobileMenuOpen = false"></div>
         <div class="fixed inset-0 flex">
-            <div class="relative mr-16 w-full max-w-xs bg-gray-900 text-white px-6 pb-4 overflow-y-auto max-h-screen">
+            <div class="relative mr-16 w-full max-w-xs bg-[#44679F] text-white px-6 pb-4 overflow-y-auto max-h-screen">
                 <div class="h-16 flex items-center">
                     <img class="h-8 w-auto" src="img/FinBuddy Logo.png" alt="Logo">
                 </div>
@@ -97,14 +122,37 @@
                 </button>
                 <nav class="flex flex-col gap-y-5 mt-6">
                     <ul class="space-y-2">
-                        <li><a href="dashboard" class="block p-2 rounded-md hover:bg-gray-800">Home</a></li>
-                        <li><a href="#" class="block p-2 rounded-md hover:bg-gray-800">Budgeting</a></li>
-                        <li><a href="#" class="block p-2 rounded-md hover:bg-gray-800">Grafik</a></li>
+                        <li>
+                            <a href="{{ url('dashboard') }}"
+                                class="block p-2 rounded-md {{ request()->is('dashboard') ? 'bg-[#3B577D] text-white' : 'hover:bg-[#4d71a3]' }}">
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('budgeting') }}"
+                                class="block p-2 rounded-md {{ request()->is('budgeting*') ? 'bg-[#3B577D] text-white' : 'hover:bg-[#4d71a3]' }}">
+                                Budgeting
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('visual') }}"
+                                class="block p-2 rounded-md {{ request()->is('visual*') ? 'bg-[#3B577D] text-white' : 'hover:bg-[#4d71a3]' }}">
+                                Visualisasi Keuangan
+                            </a>
+                        </li>
                     </ul>
-                    <div class="text-xs text-gray-400 mt-4">Riwayat Keuangan</div>
+                    <div class="text-xs text-gray-200 mt-4">Riwayat Keuangan</div>
                     <ul class="space-y-2 mt-2">
-                        <li><a href="riwayatInputSaldo" class="block p-2 rounded-md hover:bg-gray-800">Riwayat Input Saldo</a></li>
-                        <li><a href="#" class="block p-2 rounded-md hover:bg-gray-800">Pengeluaran</a></li>
+                        <li><a href="{{ url('riwayatInputSaldo') }}"
+                                class="block p-2 rounded-md {{ request()->is('riwayatInputSaldo*') ? 'bg-[#3B577D] text-white' : 'hover:bg-[#4d71a3]' }}">
+                                Riwayat Input Saldo
+                            </a></li>
+                        <li>
+                            <a href="{{ url('pengeluaran') }}"
+                                class="block p-2 rounded-md {{ request()->is('pengeluaran*') ? 'bg-[#3B577D] text-white' : 'hover:bg-[#4d71a3]' }}">
+                                Pengeluaran
+                            </a>
+                        </li>
                     </ul>
                 </nav>
             </div>
