@@ -71,7 +71,7 @@
             <ul class="space-y-2">
                 <li><a href="dashboard" class="block p-2 rounded-md bg-gray-800">Home</a></li>
                 <li><a href="budgeting" class="block p-2 rounded-md hover:bg-gray-800">Budgeting</a></li>
-                <li><a href="#" class="block p-2 rounded-md hover:bg-gray-800">Grafik</a></li>
+                <li><a href="visual" class="block p-2 rounded-md hover:bg-gray-800">Visualisasi Keuangan</a></li>
             </ul>
             <div class="text-xs text-gray-400 mt-4">Riwayat Keuangan</div>
             <ul class="space-y-2 mt-2">
@@ -98,8 +98,8 @@
                 <nav class="flex flex-col gap-y-5 mt-6">
                     <ul class="space-y-2">
                         <li><a href="dashboard" class="block p-2 rounded-md hover:bg-gray-800">Home</a></li>
-                        <li><a href="#" class="block p-2 rounded-md hover:bg-gray-800">Budgeting</a></li>
-                        <li><a href="#" class="block p-2 rounded-md hover:bg-gray-800">Grafik</a></li>
+                        <li><a href="budgeting" class="block p-2 rounded-md hover:bg-gray-800">Budgeting</a></li>
+                        <li><a href="visual" class="block p-2 rounded-md hover:bg-gray-800">Visualisasi Keuangan</a></li>
                     </ul>
                     <div class="text-xs text-gray-400 mt-4">Riwayat Keuangan</div>
                     <ul class="space-y-2 mt-2">

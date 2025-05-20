@@ -33,7 +33,7 @@
                             <tr>
                                 <td class="px-4 py-2 text-sm text-gray-600">{{ $transaction->created_at->format('d-m-Y H:i') }}</td>
                                 <td class="px-4 py-2 text-sm text-gray-600">{{ number_format($transaction->jumlah, 0, ',', '.') }}</td>
-                                <td class="px-4 py-2 text-sm text-gray-600">{{ $transaction->description ?? 'N/A' }}</td>
+                                <td class="px-4 py-2 text-sm text-gray-600">{{ $transaction->deskripsi ?? 'N/A' }}</td>
                             </tr>
                         @endforeach
                     </tbody>
