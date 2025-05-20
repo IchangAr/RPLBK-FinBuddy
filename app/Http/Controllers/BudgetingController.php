@@ -43,8 +43,8 @@ class BudgetingController extends Controller
         $user = \App\Models\User::find(Auth::id());
 
         $user->saldo += $request->saldo;
-        $user->save(); // ⬅️ Tidak ada 'deskripsi' di sini, jadi aman
 
+        $user->save(); // ⬅️ Tidak ada 'deskripsi' di sini, jadi aman
         // Simpan catatan saldo di tabel transaksi
         SaldoTransaction::create([
             'user_id' => $user->id,

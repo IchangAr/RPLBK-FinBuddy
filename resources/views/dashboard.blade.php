@@ -2,13 +2,14 @@
     <main class="py-10">
         <div class="px-4 sm:px-6 lg:px-8">
             <div>
-                <h1 class="text-xl font-semibold">Selamat datang di FinBuddy</h1>
-                <p class="mt-2 text-gray-600">Siap mengelola keuangan anda.</p>
+                <h1 class="text-xl ">Selamat datang di</h1>
+                <h2 class="ml-8 text-5xl font-bold">FinBuddy</h2>
+                <p class="text-sm text-gray-600 ml-2">Siap Mengola Keuangan Anda</p>
             </div>
             <div class="mt-6 bg-white p-6 rounded-md shadow">
                 <div class="flex justify-between items-center">
                     <p class="text-xs text-gray-600">Saldo anda saat ini : {{ number_format($user->saldo ?? 0, 0, ',', '.') }}</p>
-                    <a  href="budgeting" class=" text-xs bg-[#111827] text-white px-2 py-1 rounded-md hover:bg-[#212f4d]">
+                    <a  href="budgeting" class=" text-xs bg-[#3B577D] text-white px-2 py-2 rounded-md hover:bg-[#4d71a3]">
                         Tambah Saldo
                     </a>
                 </div>

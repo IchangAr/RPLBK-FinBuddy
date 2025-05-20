@@ -3,10 +3,8 @@
         <!-- Header -->
         <div class="sm:flex sm:items-center">
             <div class="sm:flex-auto">
-                <h1 class="text-base font-semibold text-gray-900">Riwayat Transaksi Pengeluaran</h1>
-                <p class="mt-2 text-sm text-gray-700">
-                    Berikut adalah daftar riwayat transaksi pengeluaran Anda.
-                </p>
+                <p class="ml-8 text-sm text-gray-600 leading-tight mb-1">Riwayat</p>
+                <h1 class="text-3xl font-bold leading-tight">Pemasukan Keuangan kamu</h1>
             </div>
             <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
                 <button type="button"
@@ -20,24 +18,33 @@
         <div class="mt-8 flow-root">
             <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                     <table class="min-w-full">
-                    <thead>
-                        <tr>
-                            <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Tanggal</th>
-                            <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Jumlah Saldo</th>
-                            <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Deskripsi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($saldoTransactions as $transaction)
+                    <table class="min-w-full">
+                        <thead>
                             <tr>
+<<<<<<< HEAD
                                 <td class="px-4 py-2 text-sm text-gray-600">{{ $transaction->created_at->format('d-m-Y H:i') }}</td>
                                 <td class="px-4 py-2 text-sm text-gray-600">{{ number_format($transaction->jumlah, 0, ',', '.') }}</td>
                                 <td class="px-4 py-2 text-sm text-gray-600">{{ $transaction->deskripsi ?? 'N/A' }}</td>
+=======
+                                <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Tanggal</th>
+                                <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Jumlah Saldo</th>
+                                <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Deskripsi</th>
+>>>>>>> a9ed1f0ee3938a5a597678541af28470e5d88d3c
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($saldoTransactions as $transaction)
+                                <tr>
+                                    <td class="px-4 py-2 text-sm text-gray-600">
+                                        {{ $transaction->created_at->format('d-m-Y H:i') }}</td>
+                                    <td class="px-4 py-2 text-sm text-gray-600">
+                                        {{ number_format($transaction->jumlah, 0, ',', '.') }}</td>
+                                    <td class="px-4 py-2 text-sm text-gray-600">{{ $transaction->deskripsi ?? 'N/A' }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

@@ -3,8 +3,14 @@
         <div class="px-4 sm:px-6 lg:px-8">
             <!-- Header Section -->
             <div>
+<<<<<<< HEAD
                 <h1 class="text-xl font-semibold">Visualisasi Keuangan Anda</h1>
                 <p class="mt-2 text-gray-600">Siap mengelola keuangan anda dengan lebih baik.</p>
+=======
+                <h1 class="text-3xl font-bold leading-tight">Visualisasi Keuangan Anda</h1>
+                <p class="ml-8 text-sm text-gray-600 leading-tight mb-1">Siap mengelola keuangan anda dengan lebih baik.
+                </p>
+>>>>>>> a9ed1f0ee3938a5a597678541af28470e5d88d3c
             </div>
 
             <!-- Saldo dan Pemasukan vs Pengeluaran per Bulan (Sampingan) -->
@@ -14,12 +20,20 @@
                     <!-- Header -->
                     <div class="flex justify-between items-center mb-2">
                         <p class="text-xs text-gray-600">Saldo Anda Saat Ini:</p>
+<<<<<<< HEAD
                         <span class="text-sm font-semibold text-green-600">Rp
+=======
+                        <span class="text-sm font-semibold">Rp
+>>>>>>> a9ed1f0ee3938a5a597678541af28470e5d88d3c
                             {{ number_format(1000000, 0, ',', '.') }}</span>
                     </div>
 
                     <!-- Saldo Besar -->
+<<<<<<< HEAD
                     <div class="text-2xl font-bold text-green-600 mb-4">
+=======
+                    <div class="text-2xl font-bold  mb-4">
+>>>>>>> a9ed1f0ee3938a5a597678541af28470e5d88d3c
                         Rp {{ number_format(1000000, 0, ',', '.') }}
                     </div>
 
@@ -27,7 +41,11 @@
                     <div class="mb-4">
                         <p class="text-xs text-gray-500 mb-1">Target Tabungan: Rp 5.000.000</p>
                         <div class="w-full bg-gray-200 h-2 rounded-full">
+<<<<<<< HEAD
                             <div class="bg-green-500 h-2 rounded-full" style="width: 20%"></div>
+=======
+                            <div class="bg-[#3B577D] h-2 rounded-full" style="width: 20%"></div>
+>>>>>>> a9ed1f0ee3938a5a597678541af28470e5d88d3c
                         </div>
                     </div>
 
@@ -35,11 +53,19 @@
                     <div class="grid grid-cols-2 gap-2 text-xs text-gray-600 mb-4">
                         <div class="bg-gray-50 p-2 rounded-md">
                             <p class="font-semibold text-gray-800">Pemasukan</p>
+<<<<<<< HEAD
                             <p class="text-green-500 font-bold">Rp 3.000.000</p>
                         </div>
                         <div class="bg-gray-50 p-2 rounded-md">
                             <p class="font-semibold text-gray-800">Pengeluaran</p>
                             <p class="text-red-500 font-bold">Rp 2.500.000</p>
+=======
+                            <p class="font-bold">Rp 3.000.000</p>
+                        </div>
+                        <div class="bg-gray-50 p-2 rounded-md">
+                            <p class="font-semibold text-gray-800">Pengeluaran</p>
+                            <p class="font-bold">Rp 2.500.000</p>
+>>>>>>> a9ed1f0ee3938a5a597678541af28470e5d88d3c
                         </div>
                     </div>
 
@@ -50,10 +76,17 @@
 
                     <!-- Aksi Cepat -->
                     <div class="flex gap-2">
+<<<<<<< HEAD
                         <button class="bg-blue-500 hover:bg-blue-600 text-white text-xs px-3 py-1 rounded-md w-full">
                             + Tambah Pemasukan
                         </button>
                         <button class="bg-red-500 hover:bg-red-600 text-white text-xs px-3 py-1 rounded-md w-full">
+=======
+                        <button class="bg-[#3B577D] hover:bg-[#4d71a3] text-white text-xs px-3 py-1 rounded-md w-full">
+                            + Tambah Pemasukan
+                        </button>
+                        <button class="bg-[#7f9098] hover:bg-[#545f65] text-white text-xs px-3 py-1 rounded-md w-full">
+>>>>>>> a9ed1f0ee3938a5a597678541af28470e5d88d3c
                             + Tambah Pengeluaran
                         </button>
                     </div>
