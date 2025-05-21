@@ -69,12 +69,6 @@
             <p class="text-xl font-bold">FinBuddy</p>
         </div>
         <nav class="flex flex-col gap-y-5">
-<<<<<<< HEAD
-            <ul class="space-y-2">
-                <li><a href="dashboard" class="block p-2 rounded-md bg-gray-800">Home</a></li>
-                <li><a href="budgeting" class="block p-2 rounded-md hover:bg-gray-800">Budgeting</a></li>
-                <li><a href="visual" class="block p-2 rounded-md hover:bg-gray-800">Visualisasi Keuangan</a></li>
-=======
             <ul class="space-y-2 mt-5">
                 <li>
                     <a href="{{ url('dashboard') }}"
@@ -94,8 +88,6 @@
                         Visualisasi Keuangan
                     </a>
                 </li>
-
->>>>>>> a9ed1f0ee3938a5a597678541af28470e5d88d3c
             </ul>
             <div class="text-xs text-gray-200 mt-4">Riwayat Keuangan</div>
             <ul class="space-y-2 mt-2">

@@ -21,15 +21,9 @@
                     <table class="min-w-full">
                         <thead>
                             <tr>
-<<<<<<< HEAD
-                                <td class="px-4 py-2 text-sm text-gray-600">{{ $transaction->created_at->format('d-m-Y H:i') }}</td>
-                                <td class="px-4 py-2 text-sm text-gray-600">{{ number_format($transaction->jumlah, 0, ',', '.') }}</td>
-                                <td class="px-4 py-2 text-sm text-gray-600">{{ $transaction->deskripsi ?? 'N/A' }}</td>
-=======
                                 <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Tanggal</th>
                                 <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Jumlah Saldo</th>
                                 <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Deskripsi</th>
->>>>>>> a9ed1f0ee3938a5a597678541af28470e5d88d3c
                             </tr>
                         </thead>
                         <tbody>
