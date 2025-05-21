@@ -16,7 +16,6 @@ class DashboardController extends Controller
         $data = [3, 2];
         // Jika kamu ingin mengambil data dari database, misalnya dari model User
 
-
         return view('dashboard', compact('user', 'labels', 'data'));
     }
 }

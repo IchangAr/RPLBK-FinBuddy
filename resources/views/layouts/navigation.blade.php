@@ -88,7 +88,6 @@
                         Visualisasi Keuangan
                     </a>
                 </li>
-
             </ul>
             <div class="text-xs text-gray-200 mt-4">Riwayat Keuangan</div>
             <ul class="space-y-2 mt-2">
@@ -122,6 +121,11 @@
                 </button>
                 <nav class="flex flex-col gap-y-5 mt-6">
                     <ul class="space-y-2">
+<<<<<<< HEAD
+                        <li><a href="dashboard" class="block p-2 rounded-md hover:bg-gray-800">Home</a></li>
+                        <li><a href="budgeting" class="block p-2 rounded-md hover:bg-gray-800">Budgeting</a></li>
+                        <li><a href="visual" class="block p-2 rounded-md hover:bg-gray-800">Visualisasi Keuangan</a></li>
+=======
                         <li>
                             <a href="{{ url('dashboard') }}"
                                 class="block p-2 rounded-md {{ request()->is('dashboard') ? 'bg-[#3B577D] text-white' : 'hover:bg-[#4d71a3]' }}">
@@ -140,6 +144,7 @@
                                 Visualisasi Keuangan
                             </a>
                         </li>
+>>>>>>> a9ed1f0ee3938a5a597678541af28470e5d88d3c
                     </ul>
                     <div class="text-xs text-gray-200 mt-4">Riwayat Keuangan</div>
                     <ul class="space-y-2 mt-2">

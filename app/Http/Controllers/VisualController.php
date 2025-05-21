@@ -18,3 +18,4 @@ class VisualController extends Controller
         return view('visual', compact('user', 'labels', 'data'));
     }
 }
+

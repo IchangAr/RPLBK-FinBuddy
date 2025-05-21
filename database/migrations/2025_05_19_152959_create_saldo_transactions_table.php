@@ -11,8 +11,7 @@ class CreateSaldoTransactionsTable extends Migration
         Schema::create('saldo_transactions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id'); // Relasi dengan tabel users
-            $table->decimal('jumlah', 15, 2); // Jumlah saldo yang ditambahkan
-            $table->enum('type', ['credit', 'debit']); // Jenis transaksi
+            $table->bigInteger('jumlah'); // Menggunakan bigInteger untuk jumlah sald
             $table->text('deskripsi')->nullable(); // Deskripsi transaksi
             $table->timestamps(); // Kolom created_at dan updated_at
 
