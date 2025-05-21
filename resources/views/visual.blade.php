@@ -8,66 +8,54 @@
                 </p>
             </div>
 
-            <!-- Saldo dan Pemasukan vs Pengeluaran per Bulan (Sampingan) -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                <!-- Saldo Section (Dummy Data) -->
-                <div class="bg-white p-4 rounded-md shadow flex flex-col justify-between h-full">
-                    <!-- Header -->
-                    <div class="flex justify-between items-center mb-2">
-                        <p class="text-xs text-gray-600">Saldo Anda Saat Ini:</p>
-                        <span class="text-sm font-semibold">Rp
-                            {{ number_format(1000000, 0, ',', '.') }}</span>
-                    </div>
+    <!-- Saldo Section -->
+    <div class="bg-white p-6 rounded-2xl shadow-md flex flex-col justify-between h-full transition hover:shadow-lg">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-2">
+            <p class="text-sm text-gray-500">Saldo Anda Saat Ini</p>
 
-                    <!-- Saldo Besar -->
-                    <div class="text-2xl font-bold  mb-4">
-                        Rp {{ number_format(1000000, 0, ',', '.') }}
-                    </div>
+        </div>
 
-                    <!-- Progress Bar Tabungan -->
-                    <div class="mb-4">
-                        <p class="text-xs text-gray-500 mb-1">Target Tabungan: Rp 5.000.000</p>
-                        <div class="w-full bg-gray-200 h-2 rounded-full">
-                            <div class="bg-[#3B577D] h-2 rounded-full" style="width: 20%"></div>
-                        </div>
-                    </div>
+        <!-- Saldo Besar -->
+        <div class="text-3xl font-bold text-[#3B577D] mb-6">
+            Rp {{ number_format(1000000, 0, ',', '.') }}
+        </div>
 
-                    <!-- Ringkasan Pemasukan / Pengeluaran -->
-                    <div class="grid grid-cols-2 gap-2 text-xs text-gray-600 mb-4">
-                        <div class="bg-gray-50 p-2 rounded-md">
-                            <p class="font-semibold text-gray-800">Pemasukan</p>
-                            <p class="font-bold">Rp 3.000.000</p>
-                        </div>
-                        <div class="bg-gray-50 p-2 rounded-md">
-                            <p class="font-semibold text-gray-800">Pengeluaran</p>
-                            <p class="font-bold">Rp 2.500.000</p>
-                        </div>
-                    </div>
-
-                    <!-- Tips -->
-                    <div class="bg-green-50 border border-green-200 text-green-800 text-xs p-2 rounded-md mb-4">
-                        💡 Tips: Sisihkan minimal 20% dari saldo untuk dana darurat.
-                    </div>
-
-                    <!-- Aksi Cepat -->
-                    <div class="flex gap-2">
-                        <button class="bg-[#3B577D] hover:bg-[#4d71a3] text-white text-xs px-3 py-1 rounded-md w-full">
-                            + Tambah Pemasukan
-                        </button>
-                        <button class="bg-[#7f9098] hover:bg-[#545f65] text-white text-xs px-3 py-1 rounded-md w-full">
-                            + Tambah Pengeluaran
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Pemasukan vs Pengeluaran per Bulan (Bar Chart) -->
-                <div class="bg-white p-4 rounded-md shadow">
-                    <h2 class="text-sm font-semibold mb-4">Pemasukan vs Pengeluaran per Bulan</h2>
-                    <div class="flex justify-center items-center">
-                        <canvas id="barChartPengeluaranPemasukan" width="400" height="200"></canvas>
-                    </div>
-                </div>
+        <!-- Progress Bar Tabungan -->
+        <div class="mb-6">
+            <p class="text-xs text-gray-500 mb-1">Target Tabungan: Rp 5.000.000</p>
+            <div class="w-full bg-gray-200 h-3 rounded-full overflow-hidden">
+                <div class="bg-[#3B577D] h-3 rounded-full transition-all duration-500" style="width: 20%"></div>
             </div>
+        </div>
+
+        <!-- Ringkasan Pemasukan / Pengeluaran -->
+        <div class="grid grid-cols-2 gap-4 text-sm text-gray-700 mb-6">
+            <div class="bg-gray-50 p-3 rounded-xl shadow-inner">
+                <p class="font-semibold text-gray-600">Pemasukan</p>
+                <p class="font-bold text-green-600">Rp 3.000.000</p>
+            </div>
+            <div class="bg-gray-50 p-3 rounded-xl shadow-inner">
+                <p class="font-semibold text-gray-600">Pengeluaran</p>
+                <p class="font-bold text-red-600">Rp 2.500.000</p>
+            </div>
+        </div>
+
+        <!-- Tips -->
+        <div class="bg-green-50 border border-green-200 text-green-800 text-xs p-3 rounded-lg mb-2">
+            💡 <strong>Tips:</strong> Sisihkan minimal 20% dari saldo untuk dana darurat.
+        </div>
+    </div>
+
+    <!-- Pemasukan vs Pengeluaran per Bulan (Bar Chart) -->
+    <div class="bg-white p-6 rounded-2xl shadow-md h-full flex flex-col justify-between transition hover:shadow-lg">
+        <h2 class="text-sm font-semibold text-gray-700 mb-4">Pemasukan vs Pengeluaran per Bulan</h2>
+        <div class="flex-grow flex justify-center items-center">
+            <canvas id="barChartPengeluaranPemasukan" width="400" height="200"></canvas>
+        </div>
+    </div>
+</div>
 
             <!-- Tabel dengan 4 Pie Charts -->
             <div class="grid grid-cols-4 gap-2 mt-8">

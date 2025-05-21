@@ -20,6 +20,7 @@ Route::get('/budgeting', [BudgetingController::class, 'index'])->name('budgeting
 
 
 Route::get('/riwayatInputSaldo', [BudgetingController::class, 'riwayatInputSaldo'])->name('riwayatInputSaldo');
+Route::get('/riwayatPengeluaran', [BudgetingController::class, 'riwayatPengeluaran'])->name('riwayatPengeluaran');
 
 // Route untuk menambah saldo
 Route::post('/tambah-saldo', [BudgetingController::class, 'tambahSaldo'])->name('tambah.saldo');
