@@ -64,6 +64,12 @@
 
     <!-- Sidebar Desktop -->
     <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col bg-[#44679F] px-6 pb-4 text-white">
+        <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+            aria-hidden="true">
+            <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36rem] -translate-x-1/2 rotate-30 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72rem]"
+                style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
+            </div>
+        </div>
         <div class="h-16 flex items-center">
             <img class="h-10 m-3 w-auto" src="img/FinBuddy Logo.png" alt="Logo">
             <p class="text-xl font-bold">FinBuddy</p>
@@ -97,7 +103,7 @@
                     </a></li>
                 <li>
                     <a href="{{ url('riwayatPengeluaran') }}"
-                        class="block p-2 rounded-md {{ request()->is('pengeluaran*') ? 'bg-[#3B577D] text-white' : 'hover:bg-[#4d71a3]' }}">
+                        class="block p-2 rounded-md {{ request()->is('riwayatPengeluaran*') ? 'bg-[#3B577D] text-white' : 'hover:bg-[#4d71a3]' }}">
                         Riwayat Pengeluaran
                     </a>
                 </li>
@@ -148,7 +154,7 @@
                             </a></li>
                         <li>
                             <a href="{{ url('riwayatPengeluaran') }}"
-                                class="block p-2 rounded-md {{ request()->is('pengeluaran*') ? 'bg-[#3B577D] text-white' : 'hover:bg-[#4d71a3]' }}">
+                                class="block p-2 rounded-md {{ request()->is('riwayatPengeluaran*') ? 'bg-[#3B577D] text-white' : 'hover:bg-[#4d71a3]' }}">
                                 Riwayat Pengeluaran
                             </a>
                         </li>

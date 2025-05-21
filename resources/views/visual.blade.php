@@ -1,5 +1,5 @@
 <x-app-layout>
-    <main class="py-10">
+    <main class="py-2">
         <div class="px-4 sm:px-6 lg:px-8">
             <!-- Header Section -->
             <div>

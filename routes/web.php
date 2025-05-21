@@ -15,6 +15,10 @@ Route::get('/visual', function () {
     return view('visual');
 });
 
+Route::get('/pengeluaran', function () {
+    return view('pengeluaran');
+});
+
 // Route untuk Budgeting dan menampilkan riwayat
 Route::get('/budgeting', [BudgetingController::class, 'index'])->name('budgeting.index');
 
