@@ -34,6 +34,18 @@ class BudgetingController extends Controller
 
         return view('riwayatInputSaldo', compact('user', 'saldoTransactions'));
     }
+
+    public function riwayatPengeluaran()
+    {
+        $user = Auth::user();
+
+        $saldoTransactions = SaldoTransaction::where('user_id', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('riwayatPengeluaran', compact('user', 'saldoTransactions'));
+    }
+
     public function tambahSaldo(Request $request)
     {
         // Validasi input saldo dan komentar
