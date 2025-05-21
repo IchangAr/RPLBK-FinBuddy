@@ -1,5 +1,5 @@
 <x-app-layout>
-    <main class="py-10">
+    <main class="py-1">
         <div class="px-4 sm:px-6 lg:px-8">
             <div>
                 <h1 class="text-xl ">Selamat datang di</h1>
@@ -48,10 +48,10 @@
 
                     <!-- Aksi Cepat -->
                     <div class="flex gap-2">
-                        <a href="budgeting" class="bg-[#3B577D] hover:bg-[#4d71a3] text-white text-xs px-3 py-1 rounded-md w-full">
+                        <a href="budgeting" class="bg-[#3B577D] hover:bg-[#4d71a3] text-white text-xs px-3 py-3 rounded-md w-full">
                             + Tambah Pemasukan
                         </a>
-                        <a href="pengeluaran" class="bg-[#7f9098] hover:bg-[#545f65] text-white text-xs px-3 py-1 rounded-md w-full">
+                        <a href="pengeluaran" class="bg-[#7f9098] hover:bg-[#545f65] text-white text-xs px-3 py-3 rounded-md w-full">
                             + Tambah Pengeluaran
                         </a>
                     </div>

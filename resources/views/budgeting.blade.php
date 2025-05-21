@@ -1,6 +1,6 @@
 <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 <x-app-layout>
-    <main class="py-10">
+    <main class="py-2">
         <div class="px-4 sm:px-6 lg:px-8">
             <div>
                 <h1 class="ml-8 text-5xl font-bold">Budgeting</h1>
@@ -94,18 +94,7 @@
                             <input type="hidden" name="tabungan" id="hidden-tabungan">
                             <input type="hidden" name="utang" id="hidden-utang">
 
-                            <!-- Tombol Submit dan Reset -->
-                            <div class="text-right mt-6">
-                                <button type="submit"
-                                    class="inline-flex items-center rounded-md bg-[#3B577D] px-3 py-2 text-xs font-semibold text-white shadow-sm hover:bg-[#4d71a3] transition-all focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-indigo-600 mr-4"
-                                    disabled>
-                                    Simpan
-                                </button>
-                                <button type="button" onclick="resetBudgeting()"
-                                    class="inline-flex items-center rounded-md bg-red-500 px-3 py-2 text-xs font-semibold text-white shadow-sm hover:bg-red-600 transition-all focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-indigo-600">
-                                    Reset Budgeting
-                                </button>
-                            </div>
+
 
                         </div>
 
@@ -114,6 +103,17 @@
                             <h2 class="text-lg font-semibold mb-4">Pembagian Budgeting</h2>
                             <canvas id="budgetBarChart" width="200" height="200"></canvas>
                         </div>
+                    </div>
+                    <div class="flex justify-center mt-6 gap-4">
+                        <button type="submit"
+                            class="inline-flex items-center rounded-md bg-[#3B577D] px-3 py-2 text-xs font-semibold text-white shadow-sm hover:bg-[#4d71a3] transition-all focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-indigo-600"
+                            disabled>
+                            Simpan
+                        </button>
+                        <button type="button" onclick="resetBudgeting()"
+                            class="inline-flex items-center rounded-md bg-red-500 px-3 py-2 text-xs font-semibold text-white shadow-sm hover:bg-red-600 transition-all focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-indigo-600">
+                            Reset Budgeting
+                        </button>
                     </div>
 
 
