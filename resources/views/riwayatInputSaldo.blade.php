@@ -6,12 +6,12 @@
                 <p class="ml-8 text-sm text-gray-600 leading-tight mb-1">Riwayat</p>
                 <h1 class="text-3xl font-bold leading-tight">Pemasukan Keuangan kamu</h1>
             </div>
-            <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+            {{-- <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
                 <button type="button"
                     class="block rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus:outline focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600">
                     Export
                 </button>
-            </div>
+            </div> --}}
         </div>
 
         <!-- Table -->

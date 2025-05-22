@@ -64,12 +64,17 @@
 
     <!-- Sidebar Desktop -->
     <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col bg-[#44679F] px-6 pb-4 text-white">
-        <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
-            aria-hidden="true">
-            <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36rem] -translate-x-1/2 rotate-30 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72rem]"
-                style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
+        <div class="absolute top-0 right-0 -z-10 transform-gpu overflow-hidden blur-2xl" aria-hidden="true">
+            <div class="aspect-[1255/678] w-[50rem] rotate-45 bg-gradient-to-tr from-[#000000] to-[#0c0674] opacity-50"
+                style="clip-path: polygon(
+            78% 30%, 100% 55%, 90% 90%, 65% 100%,
+            40% 85%, 30% 60%, 20% 80%, 0% 50%,
+            15% 15%, 50% 5%, 70% 20%
+        );">
             </div>
         </div>
+
+
         <div class="h-16 flex items-center">
             <img class="h-10 m-3 w-auto" src="img/FinBuddy Logo.png" alt="Logo">
             <p class="text-xl font-bold">FinBuddy</p>
@@ -118,6 +123,7 @@
             <div class="relative mr-16 w-full max-w-xs bg-[#44679F] text-white px-6 pb-4 overflow-y-auto max-h-screen">
                 <div class="h-16 flex items-center">
                     <img class="h-8 w-auto" src="img/FinBuddy Logo.png" alt="Logo">
+                    <p class="text-xl font-bold ml-4">FinBuddy</p>
                 </div>
                 <button class="absolute top-4 right-4" @click="mobileMenuOpen = false">
                     <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5"

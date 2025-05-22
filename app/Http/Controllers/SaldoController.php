@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\SaldoTransaction;
 use Illuminate\Http\Request;
+use App\Models\Expense;  // Tambahkan model Budgeting
 use Illuminate\Support\Facades\Auth;
 
-class BudgetingController extends Controller
+class SaldoController extends Controller
 {
     public function tambahSaldo(Request $request)
     {

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Balance;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\SaldoTransaction;
 use App\Models\Budgeting;  // Tambahkan model Budgeting
+use App\Models\Expense;  // Tambahkan model Expense
 
 class BudgetingController extends Controller
 {
@@ -39,12 +41,15 @@ class BudgetingController extends Controller
     {
         $user = Auth::user();
 
-        $saldoTransactions = SaldoTransaction::where('user_id', $user->id)
-            ->orderBy('created_at', 'desc')
+        // Mengambil data pengeluaran berdasarkan user_id dan urutkan berdasarkan tanggal terbaru
+        $expenses = Expense::where('user_id', $user->id)
+            ->orderBy('tanggal', 'desc') // Atau bisa juga menggunakan created_at, tergantung kebutuhan
             ->get();
 
-        return view('riwayatPengeluaran', compact('user', 'saldoTransactions'));
+        // Kirim data expenses dan user ke view
+        return view('riwayatPengeluaran', compact('user', 'expenses'));
     }
+
 
     public function tambahSaldo(Request $request)
     {
@@ -73,24 +78,43 @@ class BudgetingController extends Controller
         return redirect()->route('budgeting.index')->with('success_modal', true);
     }
 
-    public function simpanBudgeting($user, $request)
-    {
-        // Kalkulasi alokasi budgeting berdasarkan saldo yang baru
-        $saldo = $user->saldo; // Saldo yang sudah diperbarui
-        $kebutuhan = $saldo * ($request->kebutuhan / 100);
-        $keinginan = $saldo * ($request->keinginan / 100);
-        $tabungan = $saldo * ($request->tabungan / 100);
-        $utang = $saldo * ($request->utang / 100);
+   public function simpanBudgeting($user, $request)
+{
+    // Ambil nominal input langsung dari user (jangan total saldo user)
+    $saldo = $request->saldo; // pastikan ini ada di request
+    $kebutuhan = $saldo * ($request->kebutuhan / 100);
+    $keinginan = $saldo * ($request->keinginan / 100);
+    $tabungan = $saldo * ($request->tabungan / 100);
+    $utang = $saldo * ($request->utang / 100);
 
-        // Simpan data budgeting ke dalam tabel 'budgetings'
-        Budgeting::create([
-            'user_id' => $user->id,
-            'saldo' => $saldo,  // Saldo total
-            'kebutuhan' => $kebutuhan,  // Alokasi kebutuhan
-            'keinginan' => $keinginan,  // Alokasi keinginan
-            'tabungan' => $tabungan,  // Alokasi tabungan
-            'utang' => $utang,  // Alokasi utang
-            'deskripsi' => $request->deskripsi ?? null,
-        ]);
-    }
+    // Simpan ke tabel budgeting - hanya menyimpan nilai sekali input
+    Budgeting::create([
+        'user_id' => $user->id,
+        'saldo' => $saldo,
+        'kebutuhan' => $kebutuhan,
+        'keinginan' => $keinginan,
+        'tabungan' => $tabungan,
+        'utang' => $utang,
+        'deskripsi' => $request->deskripsi ?? null,
+    ]);
+
+    // Tambahkan ke total balance
+    $balance = Balance::firstOrCreate(
+        ['user_id' => $user->id],
+        [
+            'total_saldo' => 0,
+            'kebutuhan' => 0,
+            'keinginan' => 0,
+            'tabungan' => 0,
+            'utang' => 0,
+        ]
+    );
+
+    // Update balance dengan increment (akumulasi)
+    $balance->increment('total_saldo', $saldo);
+    $balance->increment('kebutuhan', $kebutuhan);
+    $balance->increment('keinginan', $keinginan);
+    $balance->increment('tabungan', $tabungan);
+    $balance->increment('utang', $utang);
+}
 }

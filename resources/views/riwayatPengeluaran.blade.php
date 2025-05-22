@@ -8,10 +8,10 @@
                 <h1 class="text-3xl font-bold leading-tight">Pengeluaran Keuangan kamu</h1>
             </div>
             <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                <button type="button"
+                {{-- <button type="button"
                     class="block rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus:outline focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600">
                     Export
-                </button>
+                </button> --}}
             </div>
         </div>
 
@@ -22,22 +22,30 @@
                     <table class="min-w-full">
                         <thead>
                             <tr>
-                                <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Tanggal</th>
+
                                 <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Deskripsi</th>
                                 <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Kategori</th>
                                 <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Jumlah</th>
                                 <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Sisa Saldo</th>
+                                <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Tanggal</th>
 
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($saldoTransactions as $transaction)
+                            @foreach ($expenses as $expense)
                                 <tr>
+
                                     <td class="px-4 py-2 text-sm text-gray-600">
-                                        {{ $transaction->created_at->format('d-m-Y H:i') }}</td>
+                                        {{ $expense->deskripsi ?? '-' }}</td>
                                     <td class="px-4 py-2 text-sm text-gray-600">
-                                        {{ number_format($transaction->jumlah, 0, ',', '.') }}</td>
-                                    <td class="px-4 py-2 text-sm text-gray-600">{{ $transaction->deskripsi ?? '-' }}
+                                        {{ $expense->kategori ?? '-' }}</td>
+                                    <td class="px-4 py-2 text-sm text-gray-600">
+                                        {{ number_format($expense->jumlah, 0, ',', '.') }}</td>
+                                    <td class="px-4 py-2 text-sm text-gray-600">
+                                        {{ $expense->sisa_saldo ?? '-' }}</td>
+                                    <td class="px-4 py-2 text-sm text-gray-600">
+                                        {{ $expense->created_at->format('d-m-Y H:i') }}</td>
+
                                     </td>
                                 </tr>
                             @endforeach
