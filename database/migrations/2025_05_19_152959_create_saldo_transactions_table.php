@@ -10,10 +10,10 @@ class CreateSaldoTransactionsTable extends Migration
     {
         Schema::create('saldo_transactions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id'); // Relasi dengan tabel users
-            $table->bigInteger('jumlah'); // Menggunakan bigInteger untuk jumlah sald
-            $table->text('deskripsi')->nullable(); // Deskripsi transaksi
-            $table->timestamps(); // Kolom created_at dan updated_at
+            $table->unsignedBigInteger('user_id');
+            $table->bigInteger('jumlah');
+            $table->text('deskripsi')->nullable();
+            $table->timestamps(); 
 
             // Relasi ke tabel users
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

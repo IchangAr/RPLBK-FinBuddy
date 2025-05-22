@@ -9,53 +9,47 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-    <!-- Saldo Section -->
-    <div class="bg-white p-6 rounded-2xl shadow-md flex flex-col justify-between h-full transition hover:shadow-lg">
-        <!-- Header -->
-        <div class="flex justify-between items-center mb-2">
-            <p class="text-sm text-gray-500">Saldo Anda Saat Ini</p>
+                <!-- Saldo Section -->
+                <div
+                    class="bg-white p-6 rounded-2xl shadow-md flex flex-col justify-between h-full transition hover:shadow-lg">
+                    <!-- Header -->
+                    <div class="flex justify-between items-center mb-2">
+                        <p class="text-sm text-gray-500">Saldo Anda Saat Ini</p>
 
-        </div>
+                    </div>
 
-        <!-- Saldo Besar -->
-        <div class="text-3xl font-bold text-[#3B577D] mb-6">
-            Rp {{ number_format(1000000, 0, ',', '.') }}
-        </div>
+                    <!-- Saldo Besar -->
+                    <div class="text-3xl font-bold text-[#3B577D] mb-6">
+                        Rp {{ number_format($user->saldo, 0, ',', '.') }}
+                    </div>
 
-        <!-- Progress Bar Tabungan -->
-        <div class="mb-6">
-            <p class="text-xs text-gray-500 mb-1">Target Tabungan: Rp 5.000.000</p>
-            <div class="w-full bg-gray-200 h-3 rounded-full overflow-hidden">
-                <div class="bg-[#3B577D] h-3 rounded-full transition-all duration-500" style="width: 20%"></div>
+                    <!-- Ringkasan Pemasukan / Pengeluaran -->
+                    <div class="grid grid-cols-2 gap-4 text-sm text-gray-700 mb-6">
+                        <div class="bg-gray-50 p-3 rounded-xl shadow-inner">
+                            <p class="font-semibold text-gray-600">Pemasukan</p>
+                            <p class="font-bold text-green-600">Rp {{ number_format($user->saldo, 0, ',', '.') }}</p>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded-xl shadow-inner">
+                            <p class="font-semibold text-gray-600">Pengeluaran</p>
+                            <p class="font-bold text-red-600">Rp {{ number_format($totalPengeluaran, 0, ',', '.') }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Tips -->
+                    <div class="bg-green-50 border border-green-200 text-green-800 text-xs p-3 rounded-lg mb-2">
+                        💡 <strong>Tips:</strong> Jangan lupa selalu catat pengeluaran kamu
+                    </div>
+                </div>
+
+                <!-- Pemasukan vs Pengeluaran per Bulan (Bar Chart) -->
+                <div
+                    class="bg-white p-6 rounded-2xl shadow-md h-full flex flex-col justify-between transition hover:shadow-lg">
+                    <h2 class="text-sm font-semibold text-gray-700 mb-4">Pemasukan vs Pengeluaran per Bulan</h2>
+                    <div class="flex-grow flex justify-center items-center">
+                        <canvas id="barChartPengeluaranPemasukan" width="400" height="200"></canvas>
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <!-- Ringkasan Pemasukan / Pengeluaran -->
-        <div class="grid grid-cols-2 gap-4 text-sm text-gray-700 mb-6">
-            <div class="bg-gray-50 p-3 rounded-xl shadow-inner">
-                <p class="font-semibold text-gray-600">Pemasukan</p>
-                <p class="font-bold text-green-600">Rp 3.000.000</p>
-            </div>
-            <div class="bg-gray-50 p-3 rounded-xl shadow-inner">
-                <p class="font-semibold text-gray-600">Pengeluaran</p>
-                <p class="font-bold text-red-600">Rp 2.500.000</p>
-            </div>
-        </div>
-
-        <!-- Tips -->
-        <div class="bg-green-50 border border-green-200 text-green-800 text-xs p-3 rounded-lg mb-2">
-            💡 <strong>Tips:</strong> Sisihkan minimal 20% dari saldo untuk dana darurat.
-        </div>
-    </div>
-
-    <!-- Pemasukan vs Pengeluaran per Bulan (Bar Chart) -->
-    <div class="bg-white p-6 rounded-2xl shadow-md h-full flex flex-col justify-between transition hover:shadow-lg">
-        <h2 class="text-sm font-semibold text-gray-700 mb-4">Pemasukan vs Pengeluaran per Bulan</h2>
-        <div class="flex-grow flex justify-center items-center">
-            <canvas id="barChartPengeluaranPemasukan" width="400" height="200"></canvas>
-        </div>
-    </div>
-</div>
 
             <!-- Tabel dengan 4 Pie Charts -->
             <div class="grid grid-cols-4 gap-2 mt-8">
@@ -85,61 +79,39 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Data dummy untuk pemasukan dan pengeluaran per bulan
-        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        const pemasukan = [2000000, 2500000, 3000000, 2700000, 3200000, 3100000, 3500000, 3300000, 3800000, 4000000,
-            4500000, 5000000
-        ]; // Pemasukan tiap bulan
-        const pengeluaran = [1500000, 2000000, 2500000, 2200000, 2800000, 2600000, 3000000, 2900000, 3400000, 3600000,
-            4000000, 4500000
-        ]; // Pengeluaran tiap bulan
+        const months = @json($months);
+        const pemasukan = @json($pemasukanData);
+        const pengeluaran = @json($pengeluaranData);
 
-        // Bar Chart Pemasukan vs Pengeluaran per Bulan
+        // Bar chart Pemasukan vs Pengeluaran
         const ctxPengeluaranPemasukan = document.getElementById('barChartPengeluaranPemasukan').getContext('2d');
         const barChartPengeluaranPemasukan = new Chart(ctxPengeluaranPemasukan, {
             type: 'bar',
             data: {
-                labels: months, // Bulan-bulan
+                labels: months,
                 datasets: [{
-                        label: 'Pemasukan',
-                        data: pemasukan,
-                        backgroundColor: 'rgba(54, 162, 235, 0.7)', // Warna untuk Pemasukan
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'Pengeluaran',
-                        data: pengeluaran,
-                        backgroundColor: 'rgba(255, 99, 132, 0.7)', // Warna untuk Pengeluaran
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        borderWidth: 1
-                    }
-                ]
+                    label: 'Pemasukan',
+                    data: pemasukan,
+                    backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }, {
+                    label: 'Pengeluaran',
+                    data: pengeluaran,
+                    backgroundColor: 'rgba(255, 99, 132, 0.7)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
             },
             options: {
                 responsive: true,
                 plugins: {
                     legend: {
-                        position: 'top',
+                        position: 'top'
                     },
                     title: {
                         display: true,
-                        text: 'Pemasukan vs Pengeluaran per Bulan'
-                    }
-                },
-                scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Bulan'
-                        }
-                    },
-                    y: {
-                        title: {
-                            display: true,
-                            text: 'Jumlah (Rp)'
-                        },
-                        beginAtZero: true
+                        text: 'Pemasukan vs Pengeluaran'
                     }
                 }
             }

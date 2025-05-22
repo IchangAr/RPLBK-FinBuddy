@@ -12,10 +12,10 @@ class CreateBudgetingsTable extends Migration
         $table->id();
         $table->unsignedBigInteger('user_id');
         $table->bigInteger('saldo');
-        $table->integer('kebutuhan');
-        $table->integer('keinginan');
-        $table->integer('tabungan');
-        $table->integer('utang');
+        $table->bigInteger('kebutuhan');
+        $table->bigInteger('keinginan');
+        $table->bigInteger('tabungan');
+        $table->bigInteger('utang');
         $table->text('deskripsi')->nullable();
         $table->timestamps();
 
