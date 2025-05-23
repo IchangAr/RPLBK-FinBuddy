@@ -35,22 +35,6 @@ class PengeluaranController extends Controller
     try {
         Log::info('Data request diterima:', $request->all());
 
-<<<<<<< HEAD
-        $request->validate([
-            'saldo' => 'required|numeric|min:1',
-            'kategori' => 'required|in:kebutuhan,keinginan,tabungan,utang',
-            'deskripsi' => 'nullable|string|max:255',
-        ], [
-            'tanggal.regex' => 'Format tanggal tidak valid. Gunakan format seperti "Kam, 22 Mei 2025".',
-        ]);
-
-        $user = Auth::user();
-        $kategori = $request->kategori;
-        $jumlah = $request->saldo;
-
-        $balance = Balance::where('user_id', $user->id)->first();
-
-=======
         // Validasi input
         $user = Auth::user();
         $kategori = $request->kategori;
@@ -58,7 +42,6 @@ class PengeluaranController extends Controller
 
         $balance = Balance::where('user_id', $user->id)->first();
 
->>>>>>> 95b16d7ff51ccda73ec96145c7abdb88a16f9ff9
         if (!$balance) {
             Log::error('Balance tidak ditemukan untuk user_id: ' . $user->id);
             return response()->json([

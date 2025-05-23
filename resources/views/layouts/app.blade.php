@@ -44,17 +44,6 @@
 
         @yield('content')
 
-<<<<<<< HEAD
-    <!-- Script global di akhir body -->
-    <script>
-        function showToast(type, message) {
-            const eventName = type === 'success' ? 'toast-success' : 'toast-error';
-            window.dispatchEvent(new CustomEvent(eventName, { detail: message }));
-        }
-    </script>
-
-    @stack('scripts')
-=======
         <!-- Script global di akhir body -->
         <script>
             function showToast(type, message) {
@@ -66,7 +55,6 @@
         </script>
 
         @stack('scripts')
->>>>>>> 95b16d7ff51ccda73ec96145c7abdb88a16f9ff9
 
         <!-- Page Content -->
         <main class="lg:pl-72">
@@ -133,8 +121,4 @@
     </script>
 
 </body>
-<<<<<<< HEAD
-=======
-
->>>>>>> 95b16d7ff51ccda73ec96145c7abdb88a16f9ff9
 </html>
