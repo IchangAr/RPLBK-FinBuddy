@@ -7,7 +7,7 @@
                 <p class="text-sm text-gray-600 ml-2">Siap Mengola Keuangan Anda</p>
             </div>
             <div class="grid grid-cols-5 md:grid-cols-1 gap-6 mt-6">
-                <div class="bg-white p-4 rounded-md shadow flex flex-col justify-between h-full">
+                <div class="bg-white p-4 bg-opacity-60 backdrop-blur-md rounded-md shadow flex flex-col justify-between h-full">
                     <!-- Header -->
                     <div class="flex justify-between items-center mb-2">
                      
@@ -57,7 +57,7 @@
             </div>
 
 
-            <div class="mt-8 bg-white p-6 rounded-2xl shadow-md">
+            <div class="mt-8 bg-white bg-opacity-60 backdrop-blur-md p-6 rounded-2xl shadow-md">
     <h2 class="text-sm font-semibold text-gray-700 mb-4">Tren Saldo Bulanan</h2>
     <div class="flex justify-center">
         <canvas id="lineChartPengeluaranPemasukan" width="600" height="300"></canvas>
@@ -85,16 +85,16 @@
                         label: 'Pemasukan',
                         data: pemasukan,
                         fill: false,
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(29, 53, 87, 1)',
+                        backgroundColor: 'rgba(29, 53, 87, 0.2)',
                         tension: 0.4
                     },
                     {
                         label: 'Pengeluaran',
                         data: pengeluaran,
                         fill: false,
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(69, 123, 157)',
+                        backgroundColor: 'rgba(69, 123, 157, 0.2)',
                         tension: 0.4
                     }
                 ]

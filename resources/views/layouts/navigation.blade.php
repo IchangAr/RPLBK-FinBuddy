@@ -29,7 +29,7 @@
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <button
-                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-black bg-white  hover:text-gray-400 focus:outline-none transition ease-in-out duration-150">
+                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-black bg-white  hover:text-gray-600 bg-opacity-70 backdrop-blur-md focus:outline-none transition ease-in-out duration-150">
                                 <div>{{ Auth::user()->name }}</div>
 
                                 <div class="ml-1">
@@ -84,13 +84,13 @@
                 <li>
                     <a href="{{ url('dashboard') }}"
                         class="block p-2 rounded-md {{ request()->is('dashboard') ? 'bg-[#3B577D] text-white' : 'hover:bg-[#4d71a3]' }}">
-                        Home
+                        Beranda
                     </a>
                 </li>
                 <li>
                     <a href="{{ url('budgeting') }}"
                         class="block p-2 rounded-md {{ request()->is('budgeting*') ? 'bg-[#3B577D] text-white' : 'hover:bg-[#4d71a3]' }}">
-                        Budgeting
+                        Penganggaran
                     </a>
                 </li>
                 <li>
@@ -136,13 +136,13 @@
                         <li>
                             <a href="{{ url('dashboard') }}"
                                 class="block p-2 rounded-md {{ request()->is('dashboard') ? 'bg-[#3B577D] text-white' : 'hover:bg-[#4d71a3]' }}">
-                                Home
+                                Beranda
                             </a>
                         </li>
                         <li>
                             <a href="{{ url('budgeting') }}"
                                 class="block p-2 rounded-md {{ request()->is('budgeting*') ? 'bg-[#3B577D] text-white' : 'hover:bg-[#4d71a3]' }}">
-                                Budgeting
+                                Penganggaran
                             </a>
                         </li>
                         <li>

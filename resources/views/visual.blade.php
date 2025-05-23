@@ -11,7 +11,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                 <!-- Saldo Section -->
                 <div
-                    class="bg-white p-6 rounded-2xl shadow-md flex flex-col justify-between h-full transition hover:shadow-lg">
+                    class="bg-white bg-opacity-60 backdrop-blur-md p-6 rounded-2xl shadow-md flex flex-col justify-between h-full transition hover:shadow-lg">
                     <!-- Header -->
                     <div class="flex justify-between items-center mb-2">
                         <p class="text-sm text-gray-500">Saldo Anda Saat Ini</p>
@@ -43,7 +43,7 @@
 
                 <!-- Pemasukan vs Pengeluaran per Bulan (Bar Chart) -->
                 <div
-                    class="bg-white p-6 rounded-2xl shadow-md h-full flex flex-col justify-between transition hover:shadow-lg">
+                    class="bg-white p-6 bg-opacity-60 backdrop-blur-md rounded-2xl shadow-md h-full flex flex-col justify-between transition hover:shadow-lg">
                     <h2 class="text-sm font-semibold text-gray-700 mb-4">Pemasukan vs Pengeluaran per Bulan</h2>
                     <div class="flex-grow flex justify-center items-center">
                         <canvas id="barChartPengeluaranPemasukan" width="400" height="200"></canvas>
@@ -54,22 +54,22 @@
             <!-- Tabel dengan 4 Pie Charts -->
             <div class="grid grid-cols-4 gap-2 mt-8">
                 <!-- Pie Chart 1 -->
-                <div class="bg-white p-4 rounded-md shadow">
+                <div class="bg-white bg-opacity-60 backdrop-blur-md p-4 rounded-md shadow">
                     <h3 class="text-L font-semibold text-gray-600 text-center">Kebutuhan</h3>
                     <canvas id="pieChartMakanan" width="150" height="150"></canvas>
                 </div>
                 <!-- Pie Chart 2 -->
-                <div class="bg-white p-4 rounded-md shadow">
+                <div class="bg-white bg-opacity-60 backdrop-blur-md p-4 rounded-md shadow">
                     <h2 class="text-L font-semibold text-gray-600 text-center">Keinginan</h2>
                     <canvas id="pieChartTransportasi" width="150" height="150"></canvas>
                 </div>
                 <!-- Pie Chart 3 -->
-                <div class="bg-white p-4 rounded-md shadow">
+                <div class="bg-white bg-opacity-60 backdrop-blur-md p-4 rounded-md shadow">
                     <h3 class="text-L font-semibold text-gray-600 text-center">Tabungan</h3>
                     <canvas id="pieChartHiburan" width="150" height="150"></canvas>
                 </div>
                 <!-- Pie Chart 4 -->
-                <div class="bg-white p-4 rounded-md shadow">
+                <div class="bg-white bg-opacity-60 backdrop-blur-md p-4 rounded-md shadow">
                     <h3 class="text-L font-semibold text-gray-600 text-center">Utang atau Credit</h3>
                     <canvas id="pieChartLainnya" width="150" height="150"></canvas>
                 </div>
@@ -92,14 +92,14 @@
                 datasets: [{
                     label: 'Pemasukan',
                     data: pemasukan,
-                    backgroundColor: 'rgba(54, 162, 235, 0.7)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: 'rgba(69, 123, 157, 0.7)',
+                    borderColor: 'rgba(69, 123, 157, 1)',
                     borderWidth: 1
                 }, {
                     label: 'Pengeluaran',
                     data: pengeluaran,
-                    backgroundColor: 'rgba(255, 99, 132, 0.7)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(168, 218, 220, 0.7)',
+                    borderColor: 'rgba(168, 218, 220, 1)',
                     borderWidth: 1
                 }]
             },
