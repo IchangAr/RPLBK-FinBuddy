@@ -19,9 +19,9 @@ class VisualController extends Controller
         $totalPengeluaran = Expense::where('user_id', $user->id)->sum('jumlah');
 
         // Ambil data pengeluaran per bulan (1-12)
-        $pengeluaranPerBulan = Expense::selectRaw('MONTH(tanggal) as bulan, SUM(jumlah) as total')
+        $pengeluaranPerBulan = Expense::selectRaw('MONTH(created_at) as bulan, SUM(jumlah) as total')
             ->where('user_id', $user->id)
-            ->groupByRaw('MONTH(tanggal)')
+            ->groupByRaw('MONTH(created_at)')
             ->pluck('total', 'bulan');
 
         // Ambil data pemasukan per bulan (1-12)

@@ -26,7 +26,7 @@
                                 <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Deskripsi</th>
                                 <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Kategori</th>
                                 <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Jumlah</th>
-                                <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Sisa Saldo</th>
+
                                 <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Tanggal</th>
 
                             </tr>
@@ -41,10 +41,9 @@
                                         {{ $expense->kategori ?? '-' }}</td>
                                     <td class="px-4 py-2 text-sm text-gray-600">
                                         {{ number_format($expense->jumlah, 0, ',', '.') }}</td>
+
                                     <td class="px-4 py-2 text-sm text-gray-600">
-                                        {{ $expense->sisa_saldo ?? '-' }}</td>
-                                    <td class="px-4 py-2 text-sm text-gray-600">
-                                        {{ $expense->created_at->format('d-m-Y H:i') }}</td>
+                                        {{ $expense->created_at->format('d-m-Y') }}</td>
 
                                     </td>
                                 </tr>

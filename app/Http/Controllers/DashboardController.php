@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Balance;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Expense;
 use App\Models\SaldoTransaction;
@@ -14,11 +15,13 @@ class DashboardController extends Controller
 
         // Total pengeluaran
         $totalPengeluaran = Expense::where('user_id', $user->id)->sum('jumlah');
+        // Total pemasukan
+        $totalSaldo = Balance::where('user_id', $user->id)->value('total_saldo');
 
         // Ambil data pengeluaran per bulan
-        $pengeluaranPerBulan = Expense::selectRaw('MONTH(tanggal) as bulan, SUM(jumlah) as total')
+        $pengeluaranPerBulan = Expense::selectRaw('MONTH(created_at) as bulan, SUM(jumlah) as total')
             ->where('user_id', $user->id)
-            ->groupByRaw('MONTH(tanggal)')
+            ->groupByRaw('MONTH(created_at)')
             ->pluck('total', 'bulan');
 
         // Ambil data pemasukan per bulan
@@ -55,7 +58,8 @@ class DashboardController extends Controller
             'saldoBulanan',
             'months',
             'labels',
-            'data'
+            'data',
+            'totalSaldo',
         ));
     }
 }

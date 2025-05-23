@@ -43,7 +43,7 @@ class BudgetingController extends Controller
 
         // Mengambil data pengeluaran berdasarkan user_id dan urutkan berdasarkan tanggal terbaru
         $expenses = Expense::where('user_id', $user->id)
-            ->orderBy('tanggal', 'desc') // Atau bisa juga menggunakan created_at, tergantung kebutuhan
+            ->orderBy('created_at', 'desc') // Atau bisa juga menggunakan created_at, tergantung kebutuhan
             ->get();
 
         // Kirim data expenses dan user ke view
@@ -78,43 +78,46 @@ class BudgetingController extends Controller
         return redirect()->route('budgeting.index')->with('success_modal', true);
     }
 
-   public function simpanBudgeting($user, $request)
-{
-    // Ambil nominal input langsung dari user (jangan total saldo user)
-    $saldo = $request->saldo; // pastikan ini ada di request
-    $kebutuhan = $saldo * ($request->kebutuhan / 100);
-    $keinginan = $saldo * ($request->keinginan / 100);
-    $tabungan = $saldo * ($request->tabungan / 100);
-    $utang = $saldo * ($request->utang / 100);
+    public function simpanBudgeting($user, $request)
+    {
+        // Ambil nominal input langsung dari user (jangan total saldo user)
+        $saldo = $request->saldo; // pastikan ini ada di request
+        $kebutuhan = $saldo * ($request->kebutuhan / 100);
+        $keinginan = $saldo * ($request->keinginan / 100);
+        $tabungan = $saldo * ($request->tabungan / 100);
+        $utang = $saldo * ($request->utang / 100);
 
-    // Simpan ke tabel budgeting - hanya menyimpan nilai sekali input
-    Budgeting::create([
-        'user_id' => $user->id,
-        'saldo' => $saldo,
-        'kebutuhan' => $kebutuhan,
-        'keinginan' => $keinginan,
-        'tabungan' => $tabungan,
-        'utang' => $utang,
-        'deskripsi' => $request->deskripsi ?? null,
-    ]);
+        // Simpan ke tabel budgeting - hanya menyimpan nilai sekali input
+        Budgeting::create([
+            'user_id' => $user->id,
+            'saldo' => $saldo,
+            'kebutuhan' => $kebutuhan,
+            'keinginan' => $keinginan,
+            'tabungan' => $tabungan,
+            'utang' => $utang,
+            'deskripsi' => $request->deskripsi ?? null,
+        ]);
 
-    // Tambahkan ke total balance
-    $balance = Balance::firstOrCreate(
-        ['user_id' => $user->id],
-        [
-            'total_saldo' => 0,
-            'kebutuhan' => 0,
-            'keinginan' => 0,
-            'tabungan' => 0,
-            'utang' => 0,
-        ]
-    );
+        // Tambahkan ke total balance
+        $balance = Balance::firstOrCreate(
+            ['user_id' => $user->id],
+            [
+                'total_saldo' => 0,
+                'kebutuhan' => 0,
+                'keinginan' => 0,
+                'tabungan' => 0,
+                'utang' => 0,
+            ]
+        );
 
-    // Update balance dengan increment (akumulasi)
-    $balance->increment('total_saldo', $saldo);
-    $balance->increment('kebutuhan', $kebutuhan);
-    $balance->increment('keinginan', $keinginan);
-    $balance->increment('tabungan', $tabungan);
-    $balance->increment('utang', $utang);
-}
+
+
+        // Update balance dengan increment (akumulasi)
+        $balance->increment('total_saldo', $saldo);
+        $balance->increment('kebutuhan', $kebutuhan);
+        $balance->increment('keinginan', $keinginan);
+        $balance->increment('tabungan', $tabungan);
+        $balance->increment('utang', $utang);
+    }
+
 }
