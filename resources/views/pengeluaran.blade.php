@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 mb-10" x-data="pengeluaranApp()">
-        <div class="mt-6 bg-white bg-opacity-60 backdrop-blur-md p-8 rounded-lg shadow-lg">
+        <div class="mt-6 bg-white p-8 rounded-lg shadow-lg">
             <div class="mb-4">
                 <a href="{{ route('dashboard') }}"
                     class="inline-flex items-center text-sm font-semibold text-[#3B577D] hover:text-[#4d71a3]">
@@ -13,18 +13,14 @@
                 <h1 class="text-3xl font-bold leading-tight">Pengeluaran Keuangan Kamu</h1>
             </div>
 
-            <form id="formPengeluaran" action="{{ route('pengeluaran.simpan') }}" method="POST"
-                @submit.prevent="submitForm">
+            <form id="formPengeluaran" action="{{ route('pengeluaran.simpan') }}" method="POST" @submit.prevent="submitForm">
                 @csrf
 
                 <div class="mb-6">
                     <label for="kategori" class="block text-sm font-semibold text-gray-700 mb-2">Silahkan Pilih
                         Kategori</label>
                     <select id="kategori" name="kategori" x-model="form.kategori" @change="updateSaldoTersisa"
-                        class="block w-full rounded-lg border border-gray-300 bg-white px-4 py-2 pr-10 text-base text-gray-900
-           shadow-sm placeholder-gray-400
-           focus:border-[#3B577D] focus:ring-2 focus:ring-[#3B577D] focus:outline-none
-           transition duration-200 ease-in-out sm:text-sm"
+                        class="w-full rounded-md border border-gray-300 bg-white py-2 pl-4 pr-10 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-300"
                         required>
                         <option value="">Pilih Kategori</option>
                         <option value="kebutuhan">Kebutuhan</option>
@@ -42,32 +38,22 @@
                 <p class="block text-sm font-semibold text-gray-700 mb-2">Input Pengeluaran Anda</p>
                 <div class="flex items-center gap-3 mb-6">
                     <label for="saldo" class="text-sm text-gray-600 whitespace-nowrap">Rp</label>
-                    <input type="number" name="saldo" id="saldo" x-model.number="form.saldo" min="0"
-                        autofocus
-                        class="block w-full rounded-lg border border-gray-300 bg-white px-4 py-2 pr-10 text-base text-gray-900
-           shadow-sm placeholder-gray-400
-           focus:border-[#3B577D] focus:ring-2 focus:ring-[#3B577D] focus:outline-none
-           transition duration-200 ease-in-out sm:text-sm"
-                        placeholder="Masukkan saldo" required @input="updateSaldoTersisa">
+                    <input type="number" name="saldo" id="saldo" x-model.number="form.saldo" min="0" autofocus
+                        class="border rounded-md px-2 py-2 text-sm w-full" placeholder="Masukkan saldo" required
+                        @input="updateSaldoTersisa">
                 </div>
 
                 <div class="mb-6">
                     <label for="deskripsi" class="block text-sm font-semibold text-gray-700 mb-2">Catatan</label>
                     <textarea id="deskripsi" name="deskripsi" rows="3" x-model="form.deskripsi"
-                        class="block w-full rounded-lg border border-gray-300 bg-white px-4 py-2 pr-10 text-base text-gray-900
-           shadow-sm placeholder-gray-400
-           focus:border-[#3B577D] focus:ring-2 focus:ring-[#3B577D] focus:outline-none
-           transition duration-200 ease-in-out sm:text-sm"
+                        class="w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-sm text-gray-800 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-300"
                         placeholder="Tambahkan catatan pengeluaran..." required></textarea>
                 </div>
 
-                <div class="flex justify-center">
-                    <button type="button" @click="openConfirmModal = true"
-                        class="flex rounded-md bg-[#3B577D] px-3 py-2 text-m font-semibold text-white shadow-sm hover:bg-[#4d71a3] transition-all focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-indigo-600">
-                        Simpan Pengeluaran
-                    </button>
-                </div>
-
+                <button type="button" @click="openConfirmModal = true"
+                    class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+                    Simpan Pengeluaran
+                </button>
             </form>
         </div>
 
@@ -94,7 +80,8 @@
         </div>
 
         <!-- Toast Notification -->
-        <div x-show="toast.show" x-transition x-cloak :class="toast.type === 'success' ? 'bg-green-600' : 'bg-red-600'"
+        <div x-show="toast.show" x-transition x-cloak
+            :class="toast.type === 'success' ? 'bg-green-600' : 'bg-red-600'"
             class="fixed top-5 right-5 z-50 rounded-lg text-white px-4 py-2 text-sm shadow-lg">
             <span x-text="toast.message"></span>
         </div>
@@ -136,9 +123,7 @@
                     saldo: null,
                     deskripsi: '',
                 },
-                saldoKategori: {!! json_encode(
-                    $saldoKategori ?? ['kebutuhan' => 1000000, 'keinginan' => 500000, 'tabungan' => 2000000, 'utang' => 300000],
-                ) !!},
+                saldoKategori: {!! json_encode($saldoKategori ?? ['kebutuhan' => 1000000, 'keinginan' => 500000, 'tabungan' => 2000000, 'utang' => 300000]) !!},
                 saldoTersisaDisplay: 'Rp. -',
 
                 // Modal & toast state
@@ -228,13 +213,13 @@
                     data.append('_token', '{{ csrf_token() }}');
 
                     fetch('{{ route('pengeluaran.simpan') }}', {
-                            method: 'POST',
-                            body: data,
-                            headers: {
-                                'X-Requested-With': 'XMLHttpRequest',
-                                'Accept': 'application/json',
-                            },
-                        })
+                        method: 'POST',
+                        body: data,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Accept': 'application/json',
+                        },
+                    })
                         .then(response => {
                             if (!response.ok) throw new Error('Jaringan bermasalah');
                             return response.json();
@@ -252,8 +237,7 @@
                                 }
                                 this.updateSaldoTersisa();
                             } else {
-                                this.showToast('error', data.message ||
-                                    'Terjadi kesalahan saat menyimpan pengeluaran.');
+                                this.showToast('error', data.message || 'Terjadi kesalahan saat menyimpan pengeluaran.');
                             }
                         })
                         .catch(error => {
