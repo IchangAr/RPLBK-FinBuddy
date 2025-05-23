@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Expense;
 use App\Models\Income;
 use App\Models\SaldoTransaction;
+use App\Models\Balance;
 use Illuminate\Http\Request;
 
 class VisualController extends Controller
@@ -17,6 +18,7 @@ class VisualController extends Controller
 
         // Total pengeluaran seluruhnya
         $totalPengeluaran = Expense::where('user_id', $user->id)->sum('jumlah');
+        $totalSaldo = Balance::where('user_id', $user->id)->value('total_saldo');
 
         // Ambil data pengeluaran per bulan (1-12)
         $pengeluaranPerBulan = Expense::selectRaw('MONTH(created_at) as bulan, SUM(jumlah) as total')
@@ -40,8 +42,43 @@ class VisualController extends Controller
         }
 
         $months = [
-            'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+            'Jan',
+            'Feb',
+            'Mar',
+            'Apr',
+            'May',
+            'Jun',
+            'Jul',
+            'Aug',
+            'Sep',
+            'Oct',
+            'Nov',
+            'Dec'
+        ];
+
+        $balance = Balance::where('user_id', $user->id)->first();
+        $pengeluaranPerKategori = Expense::where('user_id', $user->id)
+            ->select('kategori', DB::raw('SUM(jumlah) as total'))
+            ->groupBy('kategori')
+            ->pluck('total', 'kategori');
+
+        $kategoriData = [
+            'kebutuhan' => [
+                'budget' => $balance->kebutuhan,
+                'pengeluaran' => $pengeluaranPerKategori['kebutuhan'] ?? 0,
+            ],
+            'keinginan' => [
+                'budget' => $balance->keinginan,
+                'pengeluaran' => $pengeluaranPerKategori['keinginan'] ?? 0,
+            ],
+            'tabungan' => [
+                'budget' => $balance->tabungan,
+                'pengeluaran' => $pengeluaranPerKategori['tabungan'] ?? 0,
+            ],
+            'utang' => [
+                'budget' => $balance->utang,
+                'pengeluaran' => $pengeluaranPerKategori['utang'] ?? 0,
+            ],
         ];
 
         return view('visual', compact(
@@ -49,7 +86,9 @@ class VisualController extends Controller
             'totalPengeluaran',
             'pengeluaranData',
             'pemasukanData',
-            'months'
+            'months',
+            'totalSaldo',
+            'kategoriData'
         ));
     }
 }

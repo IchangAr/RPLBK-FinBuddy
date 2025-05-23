@@ -75,7 +75,7 @@ class BudgetingController extends Controller
         // Simpan data budgeting ke tabel budgetings
         $this->simpanBudgeting($user, $request);
 
-        return redirect()->route('budgeting.index')->with('success_modal', true);
+        return redirect()->route('budgeting.index')->with('success', 'Data berhasil disimpan!');
     }
 
     public function simpanBudgeting($user, $request)

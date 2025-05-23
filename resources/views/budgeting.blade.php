@@ -12,11 +12,6 @@
                 <h2 class="text-lg font-semibold mb-4">Tambah Saldo</h2>
                 <form action="{{ route('tambah.saldo') }}" method="POST" id="form-budgeting">
 
-                    @if (session('success'))
-                        <div x-data="{ open: true }" x-show="open" x-transition>
-                            @include('components.modal-success')
-                        </div>
-                    @endif
                     @csrf
 
                     <!-- Input Saldo -->

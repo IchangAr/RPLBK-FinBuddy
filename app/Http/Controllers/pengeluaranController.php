@@ -35,14 +35,7 @@ class PengeluaranController extends Controller
     try {
         Log::info('Data request diterima:', $request->all());
 
-        $request->validate([
-            'saldo' => 'required|numeric|min:1',
-            'kategori' => 'required|in:kebutuhan,keinginan,tabungan,utang',
-            'deskripsi' => 'nullable|string|max:255',
-        ], [
-            'tanggal.regex' => 'Format tanggal tidak valid. Gunakan format seperti "Kam, 22 Mei 2025".',
-        ]);
-
+        // Validasi input
         $user = Auth::user();
         $kategori = $request->kategori;
         $jumlah = $request->saldo;

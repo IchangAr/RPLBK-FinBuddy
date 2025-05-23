@@ -44,15 +44,17 @@
 
         @yield('content')
 
-    <!-- Script global di akhir body -->
-    <script>
-        function showToast(type, message) {
-            const eventName = type === 'success' ? 'toast-success' : 'toast-error';
-            window.dispatchEvent(new CustomEvent(eventName, { detail: message }));
-        }
-    </script>
+        <!-- Script global di akhir body -->
+        <script>
+            function showToast(type, message) {
+                const eventName = type === 'success' ? 'toast-success' : 'toast-error';
+                window.dispatchEvent(new CustomEvent(eventName, {
+                    detail: message
+                }));
+            }
+        </script>
 
-    @stack('scripts')
+        @stack('scripts')
 
         <!-- Page Content -->
         <main class="lg:pl-72">
@@ -80,6 +82,44 @@
             defaultDate: new Date(),
         });
     </script>
+    <!-- Global Alpine Toast -->
+    <div x-data x-show="$store.toast.show" x-transition x-cloak
+        :class="$store.toast.type === 'success' ? 'bg-green-600' : 'bg-red-600'"
+        class="fixed top-5 right-5 z-50 rounded-lg text-white px-4 py-2 text-sm shadow-lg">
+        <span x-text="$store.toast.message"></span>
+    </div>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.store('toast', {
+                show: false,
+                message: '',
+                type: 'success',
+                timeout: null,
+
+                showToast(message, type = 'success', duration = 3000) {
+                    this.message = message;
+                    this.type = type;
+                    this.show = true;
+
+                    clearTimeout(this.timeout);
+                    this.timeout = setTimeout(() => {
+                        this.show = false;
+                    }, duration);
+                }
+            });
+        });
+
+        // Untuk menangani toast dari Laravel flash message
+        document.addEventListener('DOMContentLoaded', () => {
+            @if (session('success'))
+                Alpine.store('toast').showToast(@json(session('success')), 'success');
+            @elseif (session('error'))
+                Alpine.store('toast').showToast(@json(session('error')), 'error');
+            @endif
+        });
+    </script>
 
 </body>
+
 </html>
