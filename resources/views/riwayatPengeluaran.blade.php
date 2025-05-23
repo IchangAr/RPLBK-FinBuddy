@@ -1,4 +1,3 @@
-
 <x-app-layout>
     <div class="px-4 sm:px-6 lg:px-8">
         <!-- Header -->
@@ -16,8 +15,8 @@
         </div>
 
         <!-- Table -->
-        <div class="mt-8 flow-root">
-            <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="my-8 flow-root bg-white bg-opacity-40 backdrop-blur-md rounded-md shadow-md min-h-[500px]">
+            <div class="-mx-4 my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                     <table class="min-w-full">
                         <thead>

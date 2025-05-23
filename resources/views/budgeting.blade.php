@@ -8,23 +8,21 @@
             </div>
 
             <!-- Form Gabungan untuk Tambah Saldo dan Komentar -->
-            <div class="mt-6 bg-white p-6 rounded-md shadow">
+            <div class="mt-6 p-6 bg-white bg-opacity-70 backdrop-blur-md rounded-md shadow-md">
                 <h2 class="text-lg font-semibold mb-4">Tambah Saldo</h2>
                 <form action="{{ route('tambah.saldo') }}" method="POST" id="form-budgeting">
 
-                    @if (session('success'))
-                        <div x-data="{ open: true }" x-show="open" x-transition>
-                            @include('components.modal-success')
-                        </div>
-                    @endif
                     @csrf
 
                     <!-- Input Saldo -->
                     <div class="flex items-center gap-3 mb-4">
                         <label for="saldo" class="text-sm text-gray-600 whitespace-nowrap">Rp</label>
                         <input type="number" name="saldo" id="saldo"
-                            class="border rounded-md px-2 py-1 text-sm w-full mr-4" placeholder="Masukkan saldo"
-                            required>
+                            class="block w-full rounded-lg border border-gray-300 bg-white px-4 py-2 pr-10 text-base text-gray-900
+           shadow-sm placeholder-gray-400
+           focus:border-[#3B577D] focus:ring-2 focus:ring-[#3B577D] focus:outline-none
+           transition duration-200 ease-in-out sm:text-sm mr-4"
+                            placeholder="Masukkan saldo" required>
                     </div>
 
                     <!-- Komentar -->
@@ -32,7 +30,10 @@
                         class="relative rounded-xl bg-white outline outline-1 outline-gray-300 focus-within:outline-indigo-600 shadow-sm transition-all mb-4 mr-4 ml-7">
                         <label for="deskripsi" class="sr-only">Add your comment</label>
                         <textarea rows="2" name="deskripsi" id="deskripsi"
-                            class="block w-full resize-none bg-transparent px-3 py-2 text-xs text-gray-800 placeholder-gray-400 border-none outline-none ring-0 focus:outline-none focus:ring-0 focus:border-none"
+                            class="block w-full rounded-lg border border-gray-300 bg-white px-4 py-2 pr-10 text-base text-gray-900
+           shadow-sm placeholder-gray-400
+           focus:border-[#3B577D] focus:ring-2 focus:ring-[#3B577D] focus:outline-none
+           transition duration-200 ease-in-out sm:text-sm"
                             placeholder="Tambahkan Catatan..."></textarea>
                     </div>
 
@@ -106,12 +107,12 @@
                     </div>
                     <div class="flex justify-center mt-6 gap-4">
                         <button type="submit"
-                            class="inline-flex items-center rounded-md bg-[#3B577D] px-3 py-2 text-xs font-semibold text-white shadow-sm hover:bg-[#4d71a3] transition-all focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-indigo-600"
+                            class="inline-flex items-center rounded-md bg-[#3B577D] px-6 py-2 text-m font-semibold text-white shadow-sm hover:bg-[#4d71a3] transition-all focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-indigo-600"
                             disabled>
                             Simpan
                         </button>
                         <button type="button" onclick="resetBudgeting()"
-                            class="inline-flex items-center rounded-md bg-red-500 px-3 py-2 text-xs font-semibold text-white shadow-sm hover:bg-red-600 transition-all focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-indigo-600">
+                            class="inline-flex items-center rounded-md bg-red-500 px-6 py-2 text-xs font-semibold text-white shadow-sm hover:bg-red-600 transition-all focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-indigo-600">
                             Reset Budgeting
                         </button>
                     </div>
@@ -141,8 +142,8 @@
                 datasets: [{
                     label: 'Alokasi Budgeting',
                     data: [0, 0, 0, 0], // Data awal
-                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
-                    borderColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
+                    backgroundColor: ['#1D3557', '#457B9D', '#A8DADC', '#4BC0C0'],
+                    borderColor: ['#1D3557', '#457B9D', '#A8DADC', '#4BC0C0'],
                     borderWidth: 1
                 }]
             },

@@ -16,6 +16,11 @@
             <form id="formPengeluaran" action="{{ route('pengeluaran.simpan') }}" method="POST" @submit.prevent="submitForm">
                 @csrf
 
+<<<<<<< HEAD
+=======
+                {{-- kategori --}}
+
+>>>>>>> 95b16d7ff51ccda73ec96145c7abdb88a16f9ff9
                 <div class="mb-6">
                     <label for="kategori" class="block text-sm font-semibold text-gray-700 mb-2">Silahkan Pilih
                         Kategori</label>
@@ -50,6 +55,11 @@
                         placeholder="Tambahkan catatan pengeluaran..." required></textarea>
                 </div>
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 95b16d7ff51ccda73ec96145c7abdb88a16f9ff9
                 <button type="button" @click="openConfirmModal = true"
                     class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
                     Simpan Pengeluaran
@@ -73,7 +83,11 @@
                     <button @click="openConfirmModal = false"
                         class="px-4 py-2 border rounded text-gray-600 hover:bg-gray-100">Batal</button>
                     <button @click="submitForm" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+<<<<<<< HEAD
                         Lanjutkan
+=======
+                        Setuju
+>>>>>>> 95b16d7ff51ccda73ec96145c7abdb88a16f9ff9
                     </button>
                 </div>
             </div>
@@ -105,9 +119,16 @@
                     </div>
                     <h3 class="text-lg font-semibold text-gray-900">Berhasil!</h3>
                     <p class="mt-2 text-sm text-gray-600" x-text="successModal.message"></p>
+<<<<<<< HEAD
                     <button @click="successModal.open = false"
                         class="mt-4 inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500">
                         Tutup
+=======
+                    <button
+                        @click="window.location.href='{{ route('dashboard') }}'"
+                        class="mt-4 inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500">
+                        Kembali Dashboard
+>>>>>>> 95b16d7ff51ccda73ec96145c7abdb88a16f9ff9
                     </button>
                 </div>
             </div>
@@ -123,7 +144,11 @@
                     saldo: null,
                     deskripsi: '',
                 },
+<<<<<<< HEAD
                 saldoKategori: {!! json_encode($saldoKategori ?? ['kebutuhan' => 1000000, 'keinginan' => 500000, 'tabungan' => 2000000, 'utang' => 300000]) !!},
+=======
+                saldoKategori: {!! json_encode($saldoKategori ?? ['kebutuhan' => 0, 'keinginan' => 0, 'tabungan' => 0, 'utang' => 0]) !!},
+>>>>>>> 95b16d7ff51ccda73ec96145c7abdb88a16f9ff9
                 saldoTersisaDisplay: 'Rp. -',
 
                 // Modal & toast state

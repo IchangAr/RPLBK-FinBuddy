@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Balance;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Budgeting;
 use App\Models\Expense;
 use App\Models\SaldoTransaction;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -13,53 +15,58 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
 
-        // Total pengeluaran
+        // Total pengeluaran dan saldo
         $totalPengeluaran = Expense::where('user_id', $user->id)->sum('jumlah');
-        // Total pemasukan
-        $totalSaldo = Balance::where('user_id', $user->id)->value('total_saldo');
+        $totalSaldo = Balance::where('user_id', $user->id)->value('total_saldo') ?? 0;
+        $totalTabungan = Budgeting::where('user_id', $user->id)->sum('tabungan');
+        $pengeluaranTabungan = Expense::where('user_id', $user->id)
+            ->where('kategori', 'tabungan')
+            ->sum('jumlah');
 
-        // Ambil data pengeluaran per bulan
-        $pengeluaranPerBulan = Expense::selectRaw('MONTH(created_at) as bulan, SUM(jumlah) as total')
-            ->where('user_id', $user->id)
-            ->groupByRaw('MONTH(created_at)')
-            ->pluck('total', 'bulan');
-
-        // Ambil data pemasukan per bulan
-        $pemasukanPerBulan = SaldoTransaction::selectRaw('MONTH(created_at) as bulan, SUM(jumlah) as total')
-            ->where('user_id', $user->id)
-            ->groupByRaw('MONTH(created_at)')
-            ->pluck('total', 'bulan');
-
-        // Siapkan array data per bulan (default 0)
-        $pengeluaranData = [];
+        // Ambil data untuk 30 hari terakhir
+        $days = 30;
+        $dates = [];
         $pemasukanData = [];
-        $saldoBulanan = [];
+        $pengeluaranData = [];
 
-        for ($i = 1; $i <= 12; $i++) {
-            $pengeluaran = $pengeluaranPerBulan[$i] ?? 0;
-            $pemasukan = $pemasukanPerBulan[$i] ?? 0;
-
-            $pengeluaranData[] = $pengeluaran;
-            $pemasukanData[] = $pemasukan;
-            $saldoBulanan[] = $pemasukan - $pengeluaran;
+        // Siapkan tanggal untuk 30 hari terakhir
+        for ($i = $days - 1; $i >= 0; $i--) {
+            $date = Carbon::today()->subDays($i);
+            $dates[] = $date->format('d M'); // Format: "01 Mei"
         }
 
-        $months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        // Ambil data pengeluaran per hari
+        $pengeluaranPerHari = Expense::selectRaw('DATE(created_at) as tanggal, SUM(jumlah) as total')
+            ->where('user_id', $user->id)
+            ->where('created_at', '>=', Carbon::today()->subDays($days))
+            ->groupBy('tanggal')
+            ->pluck('total', 'tanggal')
+            ->toArray();
 
-        // Untuk pie chart summary
-        $labels = ['Pemasukan', 'Pengeluaran'];
-        $data = [array_sum($pemasukanData), array_sum($pengeluaranData)];
+        // Ambil data pemasukan per hari
+        $pemasukanPerHari = SaldoTransaction::selectRaw('DATE(created_at) as tanggal, SUM(jumlah) as total')
+            ->where('user_id', $user->id)
+            ->where('created_at', '>=', Carbon::today()->subDays($days))
+            ->groupBy('tanggal')
+            ->pluck('total', 'tanggal')
+            ->toArray();
+
+        // Siapkan data untuk grafik
+        foreach ($dates as $date) {
+            $carbonDate = Carbon::createFromFormat('d M', $date)->format('Y-m-d');
+            $pemasukanData[] = $pemasukanPerHari[$carbonDate] ?? 0;
+            $pengeluaranData[] = $pengeluaranPerHari[$carbonDate] ?? 0;
+        }
 
         return view('dashboard', compact(
             'user',
             'totalPengeluaran',
             'pemasukanData',
             'pengeluaranData',
-            'saldoBulanan',
-            'months',
-            'labels',
-            'data',
+            'dates',
             'totalSaldo',
+            'totalTabungan',
+            'pengeluaranTabungan'
         ));
     }
 }

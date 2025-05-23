@@ -21,12 +21,12 @@
 
 <body class="font-sans antialiased">
     <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
-        <div class="relative left-1 translate-x-1/3 aspect-[1155/678] w-[36rem] rotate-30 bg-gradient-to-tr from-[#80d5ff] to-[#5248e0] opacity-40 sm:w-[72rem]"
+        <div class="relative left-1 translate-x-1/3 aspect-[1155/678] w-[36rem] rotate-30 bg-gradient-to-tr from-[#80d5ff] to-[#5248e0] opacity-70 sm:w-[74rem]"
             style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
         </div>
     </div>
-    <div class="absolute inset-x-0 bottom-0 -z-10 transform-gpu overflow-hidden blur-3xl" aria-hidden="true">
-        <div class="relative left-[-10rem] translate-y-1/3 aspect-[1155/678] w-[36rem] rotate-30 bg-gradient-to-tr from-[#80d5ff] to-[#5248e0] opacity-40 sm:w-[72rem]"
+    <div class="absolute inset-x-0 bottom--40 -z-10 transform-gpu overflow-hidden blur-3xl" aria-hidden="true">
+        <div class="relative left-[-10rem] translate-y-1/4 aspect-[1155/678] w-[36rem] rotate-30 bg-gradient-to-tr from-[#80d5ff] to-[#5248e0] opacity-70 sm:w-[90rem]"
             style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
         </div>
     </div>
@@ -35,7 +35,7 @@
 
         <!-- Page Heading -->
         @isset($header)
-            <header class="shadow-sm">
+            <header class=" bg-white shadow-sm">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     {{ $header }}
                 </div>
@@ -44,6 +44,7 @@
 
         @yield('content')
 
+<<<<<<< HEAD
     <!-- Script global di akhir body -->
     <script>
         function showToast(type, message) {
@@ -53,6 +54,19 @@
     </script>
 
     @stack('scripts')
+=======
+        <!-- Script global di akhir body -->
+        <script>
+            function showToast(type, message) {
+                const eventName = type === 'success' ? 'toast-success' : 'toast-error';
+                window.dispatchEvent(new CustomEvent(eventName, {
+                    detail: message
+                }));
+            }
+        </script>
+
+        @stack('scripts')
+>>>>>>> 95b16d7ff51ccda73ec96145c7abdb88a16f9ff9
 
         <!-- Page Content -->
         <main class="lg:pl-72">
@@ -80,6 +94,47 @@
             defaultDate: new Date(),
         });
     </script>
+    <!-- Global Alpine Toast -->
+    <div x-data x-show="$store.toast.show" x-transition x-cloak
+        :class="$store.toast.type === 'success' ? 'bg-green-600' : 'bg-red-600'"
+        class="fixed top-5 right-5 z-50 rounded-lg text-white px-4 py-2 text-sm shadow-lg">
+        <span x-text="$store.toast.message"></span>
+    </div>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.store('toast', {
+                show: false,
+                message: '',
+                type: 'success',
+                timeout: null,
+
+                showToast(message, type = 'success', duration = 3000) {
+                    this.message = message;
+                    this.type = type;
+                    this.show = true;
+
+                    clearTimeout(this.timeout);
+                    this.timeout = setTimeout(() => {
+                        this.show = false;
+                    }, duration);
+                }
+            });
+        });
+
+        // Untuk menangani toast dari Laravel flash message
+        document.addEventListener('DOMContentLoaded', () => {
+            @if (session('success'))
+                Alpine.store('toast').showToast(@json(session('success')), 'success');
+            @elseif (session('error'))
+                Alpine.store('toast').showToast(@json(session('error')), 'error');
+            @endif
+        });
+    </script>
 
 </body>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 95b16d7ff51ccda73ec96145c7abdb88a16f9ff9
 </html>
