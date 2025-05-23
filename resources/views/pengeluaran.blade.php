@@ -16,6 +16,8 @@
             <form id="formPengeluaran" action="{{ route('pengeluaran.simpan') }}" method="POST" @submit.prevent="submitForm">
                 @csrf
 
+                {{-- kategori --}}
+
                 <div class="mb-6">
                     <label for="kategori" class="block text-sm font-semibold text-gray-700 mb-2">Silahkan Pilih
                         Kategori</label>
