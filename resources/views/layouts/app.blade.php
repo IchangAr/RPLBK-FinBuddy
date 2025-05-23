@@ -13,10 +13,10 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
-
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </head>
 
 <body class="font-sans antialiased">
@@ -41,6 +41,18 @@
                 </div>
             </header>
         @endisset
+
+        @yield('content')
+
+    <!-- Script global di akhir body -->
+    <script>
+        function showToast(type, message) {
+            const eventName = type === 'success' ? 'toast-success' : 'toast-error';
+            window.dispatchEvent(new CustomEvent(eventName, { detail: message }));
+        }
+    </script>
+
+    @stack('scripts')
 
         <!-- Page Content -->
         <main class="lg:pl-72">
@@ -70,6 +82,4 @@
     </script>
 
 </body>
-
-
 </html>
