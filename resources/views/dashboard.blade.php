@@ -10,14 +10,12 @@
                 <div class="bg-white p-4 rounded-md shadow flex flex-col justify-between h-full">
                     <!-- Header -->
                     <div class="flex justify-between items-center mb-2">
-                        <p class="text-xs text-gray-600">Saldo Anda Saat Ini:</p>
-                        <span class="text-sm font-semibold">Rp
-                            {{ number_format($user->saldo, 0, ',', '.') }}</span>
+                     
                     </div>
 
                     <!-- Saldo Besar -->
                     <div class="text-2xl font-bold  mb-4">
-                        Rp {{ number_format($user->saldo, 0, ',', '.') }}
+                        Rp {{ number_format($totalSaldo, 0, ',', '.') }}
                     </div>
 
                     <!-- Progress Bar Tabungan -->
@@ -29,17 +27,16 @@
                     </div>
 
                     <!-- Ringkasan Pemasukan / Pengeluaran -->
-                    <div class="grid grid-cols-2 gap-2 text-xs text-gray-600 mb-4">
-                        <div class="bg-gray-50 p-2 rounded-md">
-                            <p class="font-semibold text-gray-800">Pemasukan</p>
-                            <p class="font-bold">Rp {{ number_format($user->saldo, 0, ',', '.') }}</p>
+                    <div class="grid grid-cols-2 gap-4 text-sm text-gray-700 mb-6">
+                        <div class="bg-gray-50 p-3 rounded-xl shadow-inner">
+                            <p class="font-semibold text-gray-600">Pemasukan</p>
+                            <p class="font-bold text-green-600">Rp {{ number_format($user->saldo, 0, ',', '.') }}</p>
                         </div>
-                        <div class="bg-gray-50 p-2 rounded-md">
-                            <p class="font-semibold text-gray-800">Pengeluaran</p>
-                            <p class="font-bold">Rp {{ number_format($totalPengeluaran, 0, ',', '.') }}</p>
+                        <div class="bg-gray-50 p-3 rounded-xl shadow-inner">
+                            <p class="font-semibold text-gray-600">Pengeluaran</p>
+                            <p class="font-bold text-red-600">Rp {{ number_format($totalPengeluaran, 0, ',', '.') }}</p>
                         </div>
                     </div>
-
                     <!-- Tips -->
                     <div class="bg-green-50 border border-green-200 text-green-800 text-xs p-2 rounded-md mb-4">
                         💡 Gunakan Aplikasi Keuangan FinBuddy! Untuk pantau pemasukan, pengeluaran, dan saldo langsung dari satu dashboard.

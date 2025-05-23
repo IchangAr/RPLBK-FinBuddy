@@ -13,28 +13,11 @@ class Expense extends Model
     protected $table = 'expenses';
 
     // Definisikan kolom yang dapat diisi massal
-    protected $fillable = [
-        'user_id', 'budgeting_id', 'kategori', 'jumlah', 'deskripsi'
-    ];
-
+    protected $fillable = ['user_id', 'kategori', 'jumlah', 'tanggal', 'deskripsi'];
     // Definisikan relasi dengan model User
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-
-    // Definisikan relasi dengan model Budgeting
-    public function budgeting()
-    {
-        return $this->belongsTo(Budgeting::class);
-
-    }
-
-    // public function dashboard()
-    // {
-    //     return $this->belongsTo(Dashboard::class);
-
-    // }
-
 
 }
