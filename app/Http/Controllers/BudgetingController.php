@@ -6,91 +6,113 @@ use App\Models\Balance;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\SaldoTransaction;
-use App\Models\Budgeting;  // Tambahkan model Budgeting
-use App\Models\Expense;  // Tambahkan model Expense
+use App\Models\Budgeting;
+use App\Models\Expense;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 
 class BudgetingController extends Controller
 {
     public function index()
     {
         $user = Auth::user();
-
-        // Ambil riwayat transaksi saldo pengguna
         $saldoTransactions = SaldoTransaction::where('user_id', $user->id)
             ->orderBy('created_at', 'desc')
             ->get();
-
-        // Ambil data budgeting terakhir untuk user ini (jika ada)
         $budgeting = Budgeting::where('user_id', $user->id)->latest()->first();
-
         return view('budgeting', compact('user', 'saldoTransactions', 'budgeting'));
     }
 
     public function riwayatInputSaldo()
     {
         $user = Auth::user();
-
         $saldoTransactions = SaldoTransaction::where('user_id', $user->id)
             ->orderBy('created_at', 'desc')
             ->get();
-
         return view('riwayatInputSaldo', compact('user', 'saldoTransactions'));
     }
 
     public function riwayatPengeluaran()
     {
         $user = Auth::user();
-
-        // Mengambil data pengeluaran berdasarkan user_id dan urutkan berdasarkan tanggal terbaru
         $expenses = Expense::where('user_id', $user->id)
-            ->orderBy('created_at', 'desc') // Atau bisa juga menggunakan created_at, tergantung kebutuhan
+            ->orderBy('created_at', 'desc')
             ->get();
-
-        // Kirim data expenses dan user ke view
         return view('riwayatPengeluaran', compact('user', 'expenses'));
     }
 
-
     public function tambahSaldo(Request $request)
     {
-        // Validasi input saldo dan komentar
-        $request->validate([
-            'saldo' => 'required|numeric|min:1',
-            'deskripsi' => 'nullable|string|max:255',
-        ]);
+        try {
+            $validatedData = $request->validate([
+                'saldo' => 'required|numeric|min:1',
+                'deskripsi' => 'nullable|string|max:255',
+                'kebutuhan' => 'required|numeric|min:0|max:100',
+                'keinginan' => 'required|numeric|min:0|max:100',
+                'tabungan' => 'required|numeric|min:0|max:100',
+                'utang' => 'required|numeric|min:0|max:100',
+            ]);
 
-        $user = \App\Models\User::find(Auth::id());
+            $totalPercentage = $validatedData['kebutuhan'] + $validatedData['keinginan'] + $validatedData['tabungan'] + $validatedData['utang'];
 
-        // Update saldo pengguna
-        $user->saldo += $request->saldo;
-        $user->save();
+            if ($totalPercentage != 100) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Total persentase alokasi budgeting harus 100%.'
+                ], 422);
+            }
 
-        // Simpan catatan saldo di tabel transaksi
-        SaldoTransaction::create([
-            'user_id' => $user->id,
-            'jumlah' => $request->saldo,
-            'deskripsi' => $request->deskripsi ?? null,
-        ]);
+            $user = Auth::user();
 
-        // Simpan data budgeting ke tabel budgetings
-        $this->simpanBudgeting($user, $request);
+            // Simpan catatan saldo di tabel transaksi SaldoTransaction
+            // (Diasumsikan SaldoTransaction adalah untuk history input, bukan saldo utama user)
+            SaldoTransaction::create([
+                'user_id' => $user->id,
+                'jumlah' => $validatedData['saldo'], // Ini adalah jumlah saldo yang baru diinput
+                'deskripsi' => $validatedData['deskripsi'] ?? 'Input saldo budgeting',
+            ]);
 
-        return redirect()->route('budgeting.index')->with('success', 'Data berhasil disimpan!');
+            // Panggil simpanBudgeting untuk memproses alokasi ke Balance dan Budgeting
+            $this->simpanBudgeting($user, $request);
+
+            // Jika User model punya kolom 'saldo', dan Anda ingin menambahkannya juga (opsional, tergantung sistem Anda)
+            // $userModel = \App\Models\User::find($user->id);
+            // $userModel->saldo += $validatedData['saldo'];
+            // $userModel->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Data budgeting berhasil disimpan!',
+            ]);
+
+        } catch (ValidationException $e) {
+            Log::error('Kesalahan validasi saat tambah saldo budgeting: ' . $e->getMessage(), $e->errors());
+            return response()->json([
+                'success' => false,
+                'message' => $e->validator->errors()->first()
+            ], 422);
+        } catch (\Exception $e) {
+            Log::error('Error saat tambah saldo budgeting: ' . $e->getMessage(), ['exception' => $e]);
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan internal saat menyimpan data.'
+            ], 500);
+        }
     }
 
-    public function simpanBudgeting($user, $request)
+    public function simpanBudgeting($user, Request $request)
     {
-        // Ambil nominal input langsung dari user (jangan total saldo user)
-        $saldo = $request->saldo; // pastikan ini ada di request
-        $kebutuhan = $saldo * ($request->kebutuhan / 100);
-        $keinginan = $saldo * ($request->keinginan / 100);
-        $tabungan = $saldo * ($request->tabungan / 100);
-        $utang = $saldo * ($request->utang / 100);
+        // Ambil nominal input langsung dari user untuk budgeting ini
+        $saldoInputSaatIni = $request->saldo; // Saldo yang diinput di form budgeting saat ini
+        $kebutuhan = $saldoInputSaatIni * ($request->kebutuhan / 100);
+        $keinginan = $saldoInputSaatIni * ($request->keinginan / 100);
+        $tabungan = $saldoInputSaatIni * ($request->tabungan / 100);
+        $utang = $saldoInputSaatIni * ($request->utang / 100);
 
-        // Simpan ke tabel budgeting - hanya menyimpan nilai sekali input
+        // Simpan detail alokasi dari input ini ke tabel Budgeting (sebagai riwayat alokasi)
         Budgeting::create([
             'user_id' => $user->id,
-            'saldo' => $saldo,
+            'saldo' => $saldoInputSaatIni, // saldo yang dialokasikan saat ini
             'kebutuhan' => $kebutuhan,
             'keinginan' => $keinginan,
             'tabungan' => $tabungan,
@@ -98,7 +120,7 @@ class BudgetingController extends Controller
             'deskripsi' => $request->deskripsi ?? null,
         ]);
 
-        // Tambahkan ke total balance
+        // Update tabel Balance (saldo utama per kategori pengguna)
         $balance = Balance::firstOrCreate(
             ['user_id' => $user->id],
             [
@@ -110,14 +132,11 @@ class BudgetingController extends Controller
             ]
         );
 
-
-
-        // Update balance dengan increment (akumulasi)
-        $balance->increment('total_saldo', $saldo);
+        // Increment saldo di tabel Balance
+        $balance->increment('total_saldo', $saldoInputSaatIni);
         $balance->increment('kebutuhan', $kebutuhan);
         $balance->increment('keinginan', $keinginan);
         $balance->increment('tabungan', $tabungan);
         $balance->increment('utang', $utang);
     }
-
 }
