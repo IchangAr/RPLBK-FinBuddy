@@ -61,7 +61,6 @@
                             <p class="text-sm mt-2">Sisa Persentase: <span x-text="sisaPersentase"
                                     :class="{
                                         'text-red-600': sisaPersentase < 0,
-                                        /* Seharusnya tidak terjadi dengan logika baru */
                                         'text-green-600': sisaPersentase == 0 &&
                                             totalPercentage == 100
                                     }">100</span>%
@@ -84,7 +83,7 @@
                                     <div class="flex justify-center mt-6 gap-4">
                                         <button type="submit"
                                             class="inline-flex items-center rounded-md bg-[#3B577D] px-6 py-2 text-m font-semibold text-white shadow-sm hover:bg-[#4d71a3] transition-all focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-indigo-600"
-                                            :disabled="!form.saldo > 0 || totalPercentage !== 100 || submitting">
+                                            :disabled="!form.saldo > 0 || submitting"> {{-- PERUBAHAN DI SINI --}}
                                             <span x-show="!submitting">Simpan Budgeting</span>
                                             <span x-show="submitting">Menyimpan...</span>
                                         </button>
@@ -93,54 +92,67 @@
                                             Reset Form
                                         </button>
                                     </div>
+                            </div>
+                        </div>
                 </form>
             </div>
 
-            {{-- Modal dan Toast tetap ada --}}
+            {{-- Modal Konfirmasi --}}
             <div x-show="showConfirmModal" x-transition x-cloak
                 class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                <div @click.away="showConfirmModal = false"
-                    class="relative w-full max-w-md rounded-lg bg-white p-6 shadow-xl">
-                    <h2 class="text-lg font-semibold mb-4">Konfirmasi Penyimpanan</h2>
-                    <p class="text-sm text-gray-600 mb-6">Apakah Anda yakin ingin menyimpan data budgeting ini?</p>
+                <div @click.away="showConfirmModal = false" x-transition:enter="ease-out duration-300"
+                    x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                    x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
+                    x-transition:leave="ease-in duration-200"
+                    x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                    x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                    class="relative w-full max-w-md rounded-lg bg-white p-6 shadow-xl z-50">
+                    <h2 class="text-lg font-semibold mb-4">Konfirmasi Budgeting</h2>
+                    <p class="text-sm text-gray-600 mb-6">Apakah kamu yakin ingin menyimpan budgeting ini?</p>
                     <div class="flex justify-end space-x-3">
                         <button @click="showConfirmModal = false"
                             class="px-4 py-2 border rounded text-gray-600 hover:bg-gray-100">Batal</button>
-                        <button @click="submitForm"
-                            class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Lanjutkan</button>
+                        <button @click="handleProceedWithSubmission" {{-- PERUBAHAN DI SINI --}}
+                            class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                            Lanjutkan
+                        </button>
                     </div>
                 </div>
             </div>
 
+            {{-- Toast Notification --}}
             <div x-show="toast.show" x-transition x-cloak
                 :class="toast.type === 'success' ? 'bg-green-600' : 'bg-red-600'"
-                class="fixed top-5 right-5 z-[100] rounded-lg text-white px-4 py-2 text-sm shadow-lg">
+                class="fixed top-5 right-5 z-[100] rounded-lg text-white px-4 py-3 text-sm shadow-lg flex items-center">
                 <span x-text="toast.message"></span>
+                <button @click="toast.show = false"
+                    class="ml-3 text-xl font-semibold leading-none hover:text-white opacity-70 hover:opacity-100">&times;</button>
             </div>
 
+            {{-- Success Modal --}}
             <div x-show="successModal.open" x-transition x-cloak
-                class="fixed inset-0 z-[90] flex items-center justify-center bg-black/50">
-                <div @click.away="closeSuccessModal" class="relative w-full max-w-md rounded-lg bg-white p-6 shadow-xl">
+                class="fixed inset-0 z-[90] flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
+                <div @click.away="closeSuccessModal" class="relative w-full max-w-md rounded-lg bg-white p-8 shadow-xl">
                     <div class="text-center">
-                        <div class="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
-                            <svg class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        <div class="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-green-100">
+                            <svg class="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                             </svg>
                         </div>
-                        <h3 class="text-lg font-semibold text-gray-900">Berhasil!</h3>
-                        <p class="mt-2 text-sm text-gray-600" x-text="successModal.message"></p>
-                        <button @click="closeSuccessModalAndRedirect"
-                            class="mt-4 inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500">Selesai
-                            & Kembali</button>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Berhasil!</h3>
+                        <p class="mt-2 text-base text-gray-600" x-text="successModal.message"></p>
+
+                        <button @click="window.location.href = '/dashboard'"
+                        class="mt-4 inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500">
+                        Ke Dashboard
+                    </button>
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
-    {{-- Hapus CDN Chart.js jika tidak digunakan di tempat lain --}}
-    {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
     <script>
         function budgetingApp() {
             return {
@@ -154,7 +166,6 @@
                         utang: 0,
                     }
                 },
-                // Properti terkait chart dihapus: chart: null, debounceChart: null,
                 submitting: false,
                 showConfirmModal: false,
                 toast: {
@@ -168,13 +179,8 @@
                 },
 
                 init() {
-                    // Panggilan ke initializeChart() dan updateChart() dihapus
                     this.handleSaldoInput();
                 },
-
-                // Fungsi initializeChart() dihapus
-                // Fungsi updateChart() dihapus
-                // Fungsi updateChartDebounced() dihapus
 
                 categoryLabel(categoryKey) {
                     const labels = {
@@ -201,7 +207,6 @@
                     if (parseFloat(this.form.saldo) === 0) {
                         this.resetOnlyPercentages();
                     }
-                    // Tidak perlu panggil updateChart() lagi
                 },
 
                 handleSliderInput(changedCategoryKey) {
@@ -216,7 +221,6 @@
                         this.form.percentages[changedCategoryKey] = Math.max(0, this.form.percentages[changedCategoryKey] -
                             overflow);
                     }
-                    // Tidak perlu panggil updateChartDebounced() lagi
                 },
 
                 calculateMoney(categoryKey) {
@@ -230,15 +234,21 @@
                         this.showToast('error', 'Masukkan nominal saldo yang valid.');
                         return;
                     }
-                    if (this.totalPercentage !== 100) {
-                        this.showToast('error', 'Total persentase alokasi budgeting harus 100%. Silakan sesuaikan slider.');
-                        return;
-                    }
+                    // Validasi totalPercentage dihapus dari sini
                     this.showConfirmModal = true;
                 },
 
+                handleProceedWithSubmission() { // FUNGSI BARU DITAMBAHKAN
+                    if (this.totalPercentage !== 100) {
+                        this.showToast('error', 'Alokasi budget belum 100%. Silakan lengkapi alokasi Anda.');
+                        this.showConfirmModal = false; // Tutup modal agar pengguna bisa memperbaiki
+                        return;
+                    }
+                    this.submitForm(); // Lanjutkan ke submit jika sudah 100%
+                },
+
                 submitForm() {
-                    this.showConfirmModal = false;
+                    this.showConfirmModal = false; // Pastikan modal tertutup
                     this.submitting = true;
                     const formData = new FormData();
                     formData.append('saldo', this.form.saldo);
@@ -286,7 +296,6 @@
                     this.form.percentages.keinginan = 0;
                     this.form.percentages.tabungan = 0;
                     this.form.percentages.utang = 0;
-                    // Tidak perlu panggil updateChart() lagi
                 },
                 resetFormValues() {
                     this.form.saldo = null;
@@ -315,7 +324,7 @@
                 closeSuccessModalAndRedirect() {
                     this.successModal.open = false;
                     this.resetFormValues();
-                    window.location.reload();
+                    window.location.reload(); // Mengarahkan ke dashboard
                 }
             };
         }
