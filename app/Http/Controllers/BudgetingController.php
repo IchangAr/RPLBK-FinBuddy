@@ -64,21 +64,15 @@ class BudgetingController extends Controller
 
             $user = Auth::user();
 
-            // Simpan catatan saldo di tabel transaksi SaldoTransaction
-            // (Diasumsikan SaldoTransaction adalah untuk history input, bukan saldo utama user)
+            // Simpan transaksi saldo
             SaldoTransaction::create([
                 'user_id' => $user->id,
-                'jumlah' => $validatedData['saldo'], // Ini adalah jumlah saldo yang baru diinput
-                'deskripsi' => $validatedData['deskripsi'] ?? 'Input saldo budgeting',
+                'jumlah' => $validatedData['saldo'],
+                'deskripsi' => $validatedData['deskripsi'] ?? 'Tidak ada deskripsi',
             ]);
 
             // Panggil simpanBudgeting untuk memproses alokasi ke Balance dan Budgeting
             $this->simpanBudgeting($user, $request);
-
-            // Jika User model punya kolom 'saldo', dan Anda ingin menambahkannya juga (opsional, tergantung sistem Anda)
-            // $userModel = \App\Models\User::find($user->id);
-            // $userModel->saldo += $validatedData['saldo'];
-            // $userModel->save();
 
             return response()->json([
                 'success' => true,
@@ -112,7 +106,7 @@ class BudgetingController extends Controller
         // Simpan detail alokasi dari input ini ke tabel Budgeting (sebagai riwayat alokasi)
         Budgeting::create([
             'user_id' => $user->id,
-            'saldo' => $saldoInputSaatIni, // saldo yang dialokasikan saat ini
+            'saldo' => $saldoInputSaatIni,
             'kebutuhan' => $kebutuhan,
             'keinginan' => $keinginan,
             'tabungan' => $tabungan,

@@ -51,10 +51,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/pengeluaran', [PengeluaranController::class, 'index'])->name('pengeluaran.index');
 
-     Route::get('/pengeluaran', [PengeluaranController::class, 'index'])->name('pengeluaran.index');
+    Route::get('/pengeluaran', [PengeluaranController::class, 'index'])->name('pengeluaran.index');
     Route::post('/pengeluaran', [PengeluaranController::class, 'simpan'])->name('pengeluaran.simpan');
+    Route::delete('/dashboard/reset-saldo-dan-riwayat', [DashboardController::class, 'resetSaldoDanRiwayat'])
+        ->name('dashboard.resetSaldoDanRiwayat');
 
-
+    Route::post('/dashboard/reset', [DashboardController::class, 'reset'])->name('dashboard.reset');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
