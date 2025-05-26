@@ -23,6 +23,8 @@ class DashboardController extends Controller
             ->where('kategori', 'tabungan')
             ->sum('jumlah');
 
+        $totalPemasukan = SaldoTransaction::where('user_id', $user->id)->sum('jumlah');
+
         // Ambil data untuk 30 hari terakhir
         $days = 30;
         $dates = [];
@@ -58,6 +60,16 @@ class DashboardController extends Controller
             $pengeluaranData[] = $pengeluaranPerHari[$carbonDate] ?? 0;
         }
 
+        // Reset saldo dan riwayat jika diperlukan
+
+        if (request()->has('reset')) {
+            Balance::where('user_id', $user->id)->update(['total_saldo' => 0]);
+            Expense::where('user_id', $user->id)->delete();
+            SaldoTransaction::where('user_id', $user->id)->delete();
+            Budgeting::where('user_id', $user->id)->update(['tabungan' => 0]);
+        }
+
+
         return view('dashboard', compact(
             'user',
             'totalPengeluaran',
@@ -66,7 +78,20 @@ class DashboardController extends Controller
             'dates',
             'totalSaldo',
             'totalTabungan',
-            'pengeluaranTabungan'
+            'pengeluaranTabungan',
+            'totalPemasukan'
         ));
     }
+    public function reset()
+{
+    $user = Auth::user();
+
+    // Reset semua data
+    Balance::where('user_id', $user->id)->update(['total_saldo' => 0]);
+    Expense::where('user_id', $user->id)->delete();
+    SaldoTransaction::where('user_id', $user->id)->delete();
+    Budgeting::where('user_id', $user->id)->update(['tabungan' => 0]);
+
+    return redirect()->route('dashboard')->with('success', 'Data berhasil direset.');
+}
 }

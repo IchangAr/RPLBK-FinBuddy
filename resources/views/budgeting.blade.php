@@ -83,7 +83,7 @@
                                     <div class="flex justify-center mt-6 gap-4">
                                         <button type="submit"
                                             class="inline-flex items-center rounded-md bg-[#3B577D] px-6 py-2 text-m font-semibold text-white shadow-sm hover:bg-[#4d71a3] transition-all focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-indigo-600"
-                                            :disabled="!form.saldo > 0 || submitting"> {{-- PERUBAHAN DI SINI --}}
+                                            :disabled="!form.saldo > 0 || submitting"> 
                                             <span x-show="!submitting">Simpan Budgeting</span>
                                             <span x-show="submitting">Menyimpan...</span>
                                         </button>

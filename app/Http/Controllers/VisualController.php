@@ -19,6 +19,7 @@ class VisualController extends Controller
         // Total pengeluaran seluruhnya
         $totalPengeluaran = Expense::where('user_id', $user->id)->sum('jumlah');
         $totalSaldo = Balance::where('user_id', $user->id)->value('total_saldo');
+        $totalPemasukan = SaldoTransaction::where('user_id', $user->id)->sum('jumlah');
 
         // Ambil data pengeluaran per bulan (1-12)
         $pengeluaranPerBulan = Expense::selectRaw('MONTH(created_at) as bulan, SUM(jumlah) as total')
@@ -88,7 +89,8 @@ class VisualController extends Controller
             'pemasukanData',
             'months',
             'totalSaldo',
-            'kategoriData'
+            'kategoriData',
+            'totalPemasukan'
         ));
     }
 }

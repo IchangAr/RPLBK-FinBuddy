@@ -4,12 +4,13 @@
             <!-- Header Section -->
             <div>
                 <h1 class="text-3xl font-bold leading-tight">Visualisasi Keuangan Anda</h1>
-                <p class="ml-8 text-sm text-gray-600 leading-tight mb-1">Siap mengelola keuangan anda dengan lebih baik.</p>
+                <p class="ml-8 text-sm text-gray-600 leading-tight mb-1">Siap mengelola keuangan anda dengan lebih baik.
+                </p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                 <!-- Saldo Section -->
-                <div class="bg-white p-6 rounded-2xl shadow-md flex flex-col justify-between h-full transition hover:shadow-lg">
+                <div class="w-full max-w-full mt-6 p-6 bg-white bg-opacity-70 backdrop-blur-md rounded-md shadow-md">
                     <div class="flex justify-between items-center mb-2">
                         <p class="text-sm text-gray-500">Saldo Anda Saat Ini</p>
                     </div>
@@ -19,7 +20,7 @@
                     <div class="grid grid-cols-2 gap-4 text-sm text-gray-700 mb-6">
                         <div class="bg-gray-50 p-3 rounded-xl shadow-inner">
                             <p class="font-semibold text-gray-600">Pemasukan</p>
-                            <p class="font-bold text-green-600">Rp {{ number_format($user->saldo, 0, ',', '.') }}</p>
+                            <p class="font-bold text-green-600">Rp {{ number_format($totalPemasukan, 0, ',', '.') }}</p>
                         </div>
                         <div class="bg-gray-50 p-3 rounded-xl shadow-inner">
                             <p class="font-semibold text-gray-600">Pengeluaran</p>
@@ -32,7 +33,7 @@
                 </div>
 
                 <!-- Pemasukan vs Pengeluaran per Bulan (Bar Chart) -->
-                <div class="bg-white p-6 rounded-2xl shadow-md h-full flex flex-col justify-between transition hover:shadow-lg">
+                <div class="mt-6 p-6 bg-white bg-opacity-70 backdrop-blur-md rounded-md shadow-md">
                     <h2 class="text-sm font-semibold text-gray-700 mb-4">Pemasukan vs Pengeluaran per Bulan</h2>
                     <div class="flex-grow flex justify-center items-center">
                         <canvas id="barChartPengeluaranPemasukan" width="400" height="200"></canvas>
@@ -42,19 +43,19 @@
 
             <!-- Tabel dengan 4 Pie Charts -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
-                <div class="bg-white p-4 rounded-md shadow">
+                <div class="mt-6 p-6 bg-white bg-opacity-70 backdrop-blur-md rounded-md shadow-md">
                     <h3 class="text-lg font-semibold text-gray-600 text-center">Kebutuhan</h3>
                     <canvas id="pieChartKebutuhan" width="150" height="150"></canvas>
                 </div>
-                <div class="bg-white p-4 rounded-md shadow">
+                <div class="mt-6 p-6 bg-white bg-opacity-70 backdrop-blur-md rounded-md shadow-md">
                     <h3 class="text-lg font-semibold text-gray-600 text-center">Keinginan</h3>
                     <canvas id="pieChartKeinginan" width="150" height="150"></canvas>
                 </div>
-                <div class="bg-white p-4 rounded-md shadow">
+                <div class="mt-6 p-6 bg-white bg-opacity-70 backdrop-blur-md rounded-md shadow-md">
                     <h3 class="text-lg font-semibold text-gray-600 text-center">Tabungan</h3>
                     <canvas id="pieChartTabungan" width="150" height="150"></canvas>
                 </div>
-                <div class="bg-white p-4 rounded-md shadow">
+                <div class="mt-6 p-6 bg-white bg-opacity-70 backdrop-blur-md rounded-md shadow-md">
                     <h3 class="text-lg font-semibold text-gray-600 text-center">Utang</h3>
                     <canvas id="pieChartUtang" width="150" height="150"></canvas>
                 </div>
@@ -93,8 +94,13 @@
                 options: {
                     responsive: true,
                     plugins: {
-                        legend: { position: 'top' },
-                        title: { display: true, text: 'Pemasukan vs Pengeluaran' }
+                        legend: {
+                            position: 'top'
+                        },
+                        title: {
+                            display: true,
+                            text: 'Pemasukan vs Pengeluaran'
+                        }
                     }
                 }
             });
@@ -115,7 +121,9 @@
                 const budgetVal = Number(budget) || 0;
 
                 if (pengeluaranVal < 0 || budgetVal < 0) {
-                    console.warn(`Data tidak valid untuk ${labelKategori}: pengeluaran=${pengeluaranVal}, budget=${budgetVal}`);
+                    console.warn(
+                        `Data tidak valid untuk ${labelKategori}: pengeluaran=${pengeluaranVal}, budget=${budgetVal}`
+                        );
                     return;
                 }
 
@@ -135,19 +143,47 @@
                     options: {
                         responsive: true,
                         plugins: {
-                            legend: { position: 'bottom' },
-                            title: { display: true, text: labelKategori }
+                            legend: {
+                                position: 'bottom'
+                            },
+                            title: {
+                                display: true,
+                                text: labelKategori
+                            }
                         }
                     }
                 });
             }
 
             // Inisialisasi pie chart
-            const charts = [
-                { id: 'pieChartKebutuhan', kategori: 'kebutuhan', label: 'Kebutuhan', warna1: 'rgba(255, 99, 132, 0.7)', warna2: 'rgba(54, 162, 235, 0.7)' },
-                { id: 'pieChartKeinginan', kategori: 'keinginan', label: 'Keinginan', warna1: 'rgba(255, 159, 64, 0.7)', warna2: 'rgba(75, 192, 192, 0.7)' },
-                { id: 'pieChartTabungan', kategori: 'tabungan', label: 'Tabungan', warna1: 'rgba(153, 102, 255, 0.7)', warna2: 'rgba(255, 159, 64, 0.7)' },
-                { id: 'pieChartUtang', kategori: 'utang', label: 'Utang', warna1: 'rgba(54, 162, 235, 0.7)', warna2: 'rgba(75, 192, 192, 0.7)' }
+            const charts = [{
+                    id: 'pieChartKebutuhan',
+                    kategori: 'kebutuhan',
+                    label: 'Kebutuhan',
+                    warna1: 'rgba(255, 99, 132, 0.7)',
+                    warna2: 'rgba(54, 162, 235, 0.7)'
+                },
+                {
+                    id: 'pieChartKeinginan',
+                    kategori: 'keinginan',
+                    label: 'Keinginan',
+                    warna1: 'rgba(255, 159, 64, 0.7)',
+                    warna2: 'rgba(75, 192, 192, 0.7)'
+                },
+                {
+                    id: 'pieChartTabungan',
+                    kategori: 'tabungan',
+                    label: 'Tabungan',
+                    warna1: 'rgba(153, 102, 255, 0.7)',
+                    warna2: 'rgba(255, 159, 64, 0.7)'
+                },
+                {
+                    id: 'pieChartUtang',
+                    kategori: 'utang',
+                    label: 'Utang',
+                    warna1: 'rgba(54, 162, 235, 0.7)',
+                    warna2: 'rgba(75, 192, 192, 0.7)'
+                }
             ];
 
             charts.forEach(chart => {
